@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="mountain_landscape_23" tilewidth="32" tileheight="32">
+  <image source="../../../../../Users/ctt/Pictures/GameDev/tilemap/mountain_landscape_23.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt00ERgEAAA7FzCA7Avwpw0X3k0YmB7nXOuf9dTPj8e5lx/Qfqo+z6D9RH2fUfqI+y6z9QH2XXf6A+yq7/QH2UXf+B+ii7/gP1UXb9B+qj7PoP1EfZ9R+oj7LrP1AfZdd/oD7Krv9AfZRd/4H6KLv+A/VRdv0H6qPs+g/UR9n1H6iPsus/UB9l13+gPsqu/0B9lF3/gfoou/4D9VF2/Qfqo+z6D9RH2fUfqI+y6z9QH2XXf6A+yq7/QH2UXf+B+ii7/gP1UXb9B+qj7PoP1EfZ9R+oj7LrP1AfZdd/oD7Krv9AfZRd/4H6KLv+A/VRdv0H6qPs+g/UR9n1H6iPsus/UB9l13+gPsqu/0B9lF3/gfoou/4D9VF2/Qfqo+wH6ShavA==
+  </data>
+ </layer>
+ <layer name="Rocks" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1zlLA2EYhdGJW6WCa6WCa6WCa+/au/au//8neCGFMU0mEM2LnANPNfARMnOzdJqmmUiTaSpNp5nm22ya62u++akz4AzaW0iLaSktp5W02nN9La33tTHkGbS3mbbSdtpJu2mv53qb+zHoDNpzP2oZxf04SsfpJJ2ms3T+q6/6/7KPWuyjFvuoxT5qGfRe2sffso9a7KMW+6jFPmrxe7eWUezD59Xo+P6oxT5qsY9a7KMW+6jFPmrx/6MW+6jFPmqxj1rso5ZBz/Z+OujrcMgzaO8iXaardJ1u0u0YzqDrLt2nh/SYntLzGM6g6yW9prf0nj7S5xjOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AJSAlR/
+  </data>
+ </layer>
+ <layer name="Trees" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2NlKw0AUBuC8/3upoLV37qV37t66VQseFEpJpzQznTRFvg/+iywThgw5OUnTrJovZZ15x/Mocxm5GnoSLDxEHlv7TjOv4Tmp5yPyWTBuVHsiLIya/Ps7aW17RuqZNKv3d5Pl9cutb9SXu37sjh6tnlTdf8m8RqpHo57vzPNLezRWjQvGqE/9mTb5vWqqPul36ziOnGSOUZ/6cx25GXoSLDxFnre8Rsn3PWmzyFdr36Z+t/2vveT7nu669Lve3/0ova/WYzcOIoeRo6Enwq+zyHnkImNMSc/Mesu15zZyF7nPGK9n7s9r5C3ynjGmRs/Mn5L/V22pnpky06EnAHuuRs2inho1y5ruF+8h/rtxIl2O0Y9pIl2OAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbOMH3eBhdg==
+  </data>
+ </layer>
+</map>

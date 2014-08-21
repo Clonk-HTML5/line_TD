@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="63" height="38" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="towerdefence" tilewidth="64" tileheight="64" spacing="2">
+  <image source="../../../../../Users/ctt/Pictures/GameDev/tilemap/towerdefence.png" width="1188" height="973"/>
+ </tileset>
+ <layer name="Ground" width="63" height="38">
+  <data encoding="base64" compression="zlib">
+   eJztmLtKxEAUhoOliI0oCIJgZS3WNiqIop2Fray6rI2IIvgACtY+hTZpvKwXvDUWWlj4Pv6BBA7DTHYufwZ1p/jYIvudmT9nZhKSZ1mWC17ANfgWTIEPcKqQa9wnS5fhh2Iz/gP4IrsMv4nsd5rxbftu6zL8JrKra94lu63L8BnZT8B9yZXm3j+DR3BZckxwGT4je3G/Z0AXvCpjV9yCSTAt+hDiMnxWdnWtmebQ1WT3cRk+K7u61kzIZ06Iy/Bj9r3afz59V12Gn/oer+/yXSPEZfix+67L7uMy/NT31PfiHamVub37/Je+H4I9cNSHfS+yr3hmd3nG+vZdugyfld3lGevbd+ky/Nh9/8373Tf7O/gEb4Zxb8prQ5rsPi7DZ2Q/B8Mlg5o+FGttVvznjOAyfEZ2m29mvt8qXb/buPgpu392lZDxXd0L4tis7PLs6XXGsNxQn5Fdnj0S0xnDckN9Rva/ik/2VsPsRKhfMAc2HLMvgXmwDbZA24Dt9YWypiRG/UWw5pi9AwbAONgE+zW/Ez1YBqvgoKzbiVRfsuuQvTpj1Hqm+dfNbcxw35uuH+MsGe0xt5GAuTVdPzT7ela/bl33W8z6IdisW5/9Fqt+IpHob34AjOuBtg==
+  </data>
+ </layer>
+ <layer name="Objects" width="63" height="38">
+  <data encoding="base64" compression="zlib">
+   eJzlmU1PBCEMhjnsMEfjSaPxB3vx7m5cExOP+hsdEkgatoWW8uXMk5AdJ2WGty2FQWPG8DzovTFuHAty/4mwNd5+9dcnRl+pVuzdLVgMrj1m9XYW3Aua7K05SrBfk1Yy3rd23trF/3327ZvRN4zjMWN353/D+GG8uX0xFkH/k7nNs1+iz1fmmaWEHJiBUu0vtQcioJbvesddQ8257oDa78F1y7jPsk6Vxh1bnzi4uq6JH7WucoH1xml/jZpj5pyvOd/fQAu00u7iVpozgSPWuoBGO+z7s7UPpH0qnp/CGn3cRu8PtHlbSo2Yj/Kdxmfa9X10vmjW9t77Au531n+Dk0M2+tXicn7kvk4y5yxoM1B7T48Ra461a2rW6JqTI9Y8S9xb+80i15R2iU9W4ro31LtjLdRcd/0l31ThmxfaS2uetkam/I1pLKlzDwLb2HepvsE2NR7JuyGU9txYOGj2k1S8uXlwZdhItcMzdwrqfEd6ZhnGcc2MiQOW+9y5jhHXx9jXo/Yz3Joqqe97Q5rzewOL/VE4snYH9f3Swxcj93s201rCWYdbUbpnHxmrEjixLY317L7AdML7pbpr/38We17pO1J1rPW8zo2595lM7nxmj2jr+B+7pyCj
+  </data>
+ </layer>
+</map>
