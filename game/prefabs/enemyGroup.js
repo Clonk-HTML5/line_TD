@@ -19,10 +19,7 @@ EnemyGroup.prototype.update = function() {
             enemy.findPathTo(12, 26);
         }, this);
     if (this.game.input.mousePointer.isDown){
-        this.spawn();
-//        this.enemy.blocked = true;
-//        this.enemy.findPathTo(12, 26);
-//        console.log('findePath')
+//        this.spawn();
     }
         }
 };
@@ -32,8 +29,10 @@ EnemyGroup.prototype.spawn = function() {
     this.enemysBcl = setInterval(
         (function(self) {
          return function() {
-            if (i < 5) {
+            if (i < 20) {
                   self.enemy = new Enemy(self.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 3);
+                  self.enemy.blocked = true;
+                  self.enemy.findPathTo(12, 26);
                   self.add(self.enemy);
             } else {
                 clearTimeout(self.enemysBcl);

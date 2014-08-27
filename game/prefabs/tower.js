@@ -13,9 +13,7 @@ var Tower = function(game, x, y, frame, tileX, tileY, tile, bullets) {
     this.height2 = this.height/2;
     
     this.bullets = bullets;
-//    this.fireTime = 2000;
-//    this.fireLastTime = this.game.time.now + this.fireTime;
-    this.fireRate = 1000;
+    this.fireRate = 2000;
     this.nextFire = 0;
 };
 

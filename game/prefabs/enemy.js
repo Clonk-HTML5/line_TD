@@ -9,19 +9,13 @@ var Enemy = function(game, x, y, frame) {
     this.speedY = 0;
 //    this.curTile = 0;
     if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin) this.pathfinder = this.game.plugins.plugins[0];
+    this.pathfinder._easyStar.setIterationsPerCalculation(500); 
 };
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
 
-Enemy.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-  
-};
-
 Enemy.prototype.findPathTo = function(tilex, tiley) {
-
         this.pathfinder.setCallbackFunction(function(path) {
             path = path || [];
             for(var i = 0, ilen = path.length; i < ilen; i++) {
@@ -35,6 +29,7 @@ Enemy.prototype.findPathTo = function(tilex, tiley) {
         }.bind(this));
 
         this.pathfinder.preparePathCalculation([parseInt(this.x/GlobalGame.tileSquare),parseInt(this.y/GlobalGame.tileSquare)], [tilex,tiley]);
+        
         this.pathfinder.calculatePath();
 };
 
