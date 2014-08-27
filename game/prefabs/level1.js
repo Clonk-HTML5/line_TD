@@ -10,7 +10,6 @@ var Level1 = function(game) {
     this.tilemap = new TilemapGroup(this.game);
     this.enemys = new EnemyGroup(this.game);
     this.towers = new TowerGroup(this.game, this.enemys);
-    
 };
 
 Level1.prototype = Object.create(Phaser.Group.prototype);

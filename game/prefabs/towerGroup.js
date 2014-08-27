@@ -8,23 +8,32 @@ var TowerGroup = function(game, enemys) {
   // initialize your prefab here
 //    this.tower = new Tower(this.game, 13*GlobalGame.tileSquare, 15*GlobalGame.tileSquare, 3);
 //    this.add(this.tower);
-    this.tileForbiden = ["9", "10", "111", "112", "211", "212", "311", "312", "411", "412", "511", "512", "510", "59", "58", "68", "78", "88", "98", "108", "118", "128", "138", "139", "1310", "1311", "1312", "1313", "1314", "1315", "1316", "1416", "1516", "1616", "1716", "1816", "1916", "2016", "2116", "2115", "2114", "2113", "2213", "2313", "2413", "2513"];
+    this.tileForbiden = ["9", "10"];
     this.enemys = enemys;
     this.game.input.onDown.add(TowerGroup.prototype.posit, this);
+    
+    this.bullets = this.game.add.group();
+    this.bullets.enableBody = true;
+    this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
+    this.bullets.createMultiple(100, 'bullet');
+    this.bullets.setAll('anchor.x', 0.5);
+    this.bullets.setAll('anchor.y', 0.5);
+    this.bullets.setAll('checkWorldBounds', true);
+    this.bullets.setAll('outOfBoundsKill', true);
 };
 
 TowerGroup.prototype = Object.create(Phaser.Group.prototype);
 TowerGroup.prototype.constructor = TowerGroup;
 
 TowerGroup.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-   if(this.tower){
-    this.forEach(function(tower) {
-        tower.fire(tower);
-    });
+   var enemy = this.enemys.getFirstAlive();
+   if(this.tower && enemy){
+    this.forEachAlive(function(tower) {
+        if (this.game.physics.arcade.distanceBetween(tower,enemy) < 200) tower.fire(enemy);
+    }, this);
+
+    this.game.physics.arcade.overlap(this.bullets, this.enemys, this.bulletHitsEnemy, null, this);
    }
-  
 };
 
 //TowerGroup.prototype.add = function(pointer) {
@@ -40,10 +49,15 @@ TowerGroup.prototype.posit = function(pointer) {
     
     if (this.tileForbiden.indexOf(index) == -1) {
         if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin) this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
-        this.tower = new Tower(this.game, tileworldX, tileworldY, 3, tileX, tileY, 'tower');
+        this.tower = new Tower(this.game, tileworldX, tileworldY, 3, tileX, tileY, 'tower', this.bullets);
         this.add(this.tower);
         this.tileForbiden.push(index);
     }
+};
+
+TowerGroup.prototype.bulletHitsEnemy = function (bullet, enemy) {
+    bullet.kill();
+    enemy.destroy();
 }
 
 module.exports = TowerGroup;

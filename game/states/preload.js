@@ -16,7 +16,8 @@ Preload.prototype = {
 //    this.load.tilemap('map', 'assets/maps/garden.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('mountain_landscape_23', 'assets/maps/mountain_landscape_23.png');
 //    this.load.tilemap('towerdefencemap', 'assets/maps/towerdefence.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td.json', null, Phaser.Tilemap.TILED_JSON);
+//    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('towerdefence', 'assets/maps/towerdefence.png');
     this.load.image('summerTiles', 'assets/maps/summerTiles.png');
       

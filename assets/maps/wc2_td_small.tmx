@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="42" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="summerTiles" tilewidth="32" tileheight="32" spacing="1">
+  <image source="../../../../../../Users/ctt/Downloads/summerTiles.png" width="626" height="659"/>
+ </tileset>
+ <layer name="Ground" width="42" height="30">
+  <data encoding="base64" compression="zlib">
+   eJytmFFOwzAMhtMTIMFoBwgmDSRA8Mg9Vra2N9jLBEfYyySeyl0RN8BosWQs2wmNH34lTZuv2R/bjTaGED5BO9AH6L0K4QvaBbTPoBWoBb2SPh17BNWg7zh3Bu016MqZNcZ17kGHcOTewDNPkcFF39MRfhP5NegF1DizRuLnG2gLz9ySuZzXkz69d1Ed5yK7dmaNUejn7/07Ye6gXK/j9VxZpxdL8nNJOEOci8xNbLk4u3Fm8fikHrSMS9Wy918q6/RiWfGJzC7Op7G1YmPaOr1Ylp80jmg7xD2j3iC7UeKzlIV5pPlptdQnLY+8WLn5nrrW6pIXS/ITc5TH0Zr0eV5o8enFysl32peurbrkxUrFJ68fGjs336eyrPik+zFUtgepfC9lWX72yu/G+KJjyL6P7AdnVo6f2l7l1CUvlpXvLfMB90w6m/FaIn3fS1i58Yk+bKq/3xc8S0z5vv+HZcUnxntnxFbKTy9Wjp/Yl866PKZS+T6VZfnZCQzsbxS2dZ4vYUl+8tpM942PazElnUNKWJKfuFeWB7yfyqNSluTnMpNnnW1rZ5blJ+f1xnty6/xUlhWfvcCgsU/P4am6VMpK+Ym5yMW/dTl1voQlnT9PQWegGeic9GfG+ImyTi/Wjgj9LBGv816sPdHBgT0Px/+uFs6sH/mpee8=
+  </data>
+ </layer>
+</map>

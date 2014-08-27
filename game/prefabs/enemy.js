@@ -45,20 +45,17 @@ Enemy.prototype.moveElmt = function() {
     
     if (this.speedX > 0 && this.x >= this.next_positX) {
         this.x = this.next_positX;
-        this.nextTile();
     }
     else if (this.speedX < 0 && this.x <= this.next_positX) {
         this.x = this.next_positX;
-        this.nextTile();
     }
     else if (this.speedY > 0 && this.y >= this.next_positY) {
         this.y = this.next_positY;
-        this.nextTile();
     }
     else if (this.speedY < 0 && this.y <= this.next_positY) {
         this.y = this.next_positY;
-        this.nextTile();
     }
+//    this.nextTile();
 
 }
 Enemy.prototype.nextTile = function() {
