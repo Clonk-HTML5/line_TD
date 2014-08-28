@@ -13,15 +13,15 @@ EnemyGroup.prototype = Object.create(Phaser.Group.prototype);
 EnemyGroup.prototype.constructor = EnemyGroup;
 
 EnemyGroup.prototype.update = function() {
-        if(this.enemy){
+        var enemyToGetPath = this.getFirstAlive();
         this.forEachAlive(function(enemy) {
-            enemy.blocked = true;
-            enemy.findPathTo(12, 26);
+                for(var i = 0, ilen = enemyToGetPath.path.length; i < ilen; i++) {
+                    enemy.next_positX = parseInt(enemyToGetPath.path[i].x*GlobalGame.tileSquare);
+                    enemy.next_positY = parseInt(enemyToGetPath.path[i].y*GlobalGame.tileSquare);
+                    enemy.nextTile();
+                    enemy.moveElmt();
+                }
         }, this);
-    if (this.game.input.mousePointer.isDown){
-//        this.spawn();
-    }
-        }
 };
 
 EnemyGroup.prototype.spawn = function() {
@@ -29,10 +29,8 @@ EnemyGroup.prototype.spawn = function() {
     this.enemysBcl = setInterval(
         (function(self) {
          return function() {
-            if (i < 20) {
+            if (i < 30) {
                   self.enemy = new Enemy(self.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 3);
-                  self.enemy.blocked = true;
-                  self.enemy.findPathTo(12, 26);
                   self.add(self.enemy);
             } else {
                 clearTimeout(self.enemysBcl);

@@ -36,10 +36,6 @@ TowerGroup.prototype.update = function() {
    }
 };
 
-//TowerGroup.prototype.add = function(pointer) {
-//    this.game.input.onDown.add(TowerGroup.prototype.posit, this);
-//}
-
 TowerGroup.prototype.posit = function(pointer) {
     var tileworldX = pointer.worldX - (pointer.worldX % GlobalGame.tileSquare),
         tileworldY = pointer.worldY - (pointer.worldY % GlobalGame.tileSquare),
@@ -51,6 +47,10 @@ TowerGroup.prototype.posit = function(pointer) {
         if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin) this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
         this.tower = new Tower(this.game, tileworldX, tileworldY, 3, tileX, tileY, 'tower', this.bullets);
         this.add(this.tower);
+        this.enemys.forEachAlive(function(enemy) {
+            enemy.blocked = true;
+            enemy.findPathTo(12, 26);
+        }, this);
         this.tileForbiden.push(index);
     }
 };
