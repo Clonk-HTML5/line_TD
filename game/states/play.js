@@ -8,7 +8,8 @@ function Play() {}
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.level1 = new Level1(this.game);
-        this.cursors = this.game.input.keyboard.createCursorKeys();    
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.o_mcamera;
     },
 
     update: function() {
@@ -28,67 +29,20 @@ function Play() {}
         {
             this.game.camera.y += 10;
         }
-        if(this.game.input.onHold){
-            this.onSwipe();
-            if (this.swiping){
-                this.swiping = false;
-                if(this.firstPointX > this.lastPointX){
-
-                    this.checkSwipeX = this.firstPointX - this.lastPointX;
-
-                    if ( this.checkSwipeX >= 150 ) {
-                        this.canMove = true;
-    //                    this.direction = 3;
-                        this.game.camera.x += 10;
-                    }
-
-                } else if(this.firstPointX < this.lastPointX){
-
-                    this.checkSwipeX = this.lastPointX - this.firstPointX;
-
-                    if ( this.checkSwipeX >= 150 ) {
-                        this.canMove = true;
-    //                    this.direction = 1;
-                        this.game.camera.x -= 10;
-                    }
-                }
-
-                if(this.firstPointY > this.lastPointY){
-
-                    this.checkSwipeY = this.firstPointY - this.lastPointY;
-
-                    if ( this.checkSwipeY >= 150 ) {
-                        this.canMove = true;
-    //                    this.direction = 0;
-                        this.game.camera.y += 10;
-                    }
-
-                } else if(this.firstPointY < this.lastPointY){
-
-                    this.checkSwipeY = this.lastPointY - this.firstPointY;
-
-                    if ( this.checkSwipeY >= 150 ) {
-                        this.canMove = true;
-    //                    this.direction = 2;
-                        this.game.camera.y -= 10;
-                    }
-                }
-            }
-        }
+        this.move_camera_by_pointer(this.game.input.mousePointer);
+        this.move_camera_by_pointer(this.game.input.pointer1);
     },
-    onSwipe: function() {
-        if (Phaser.Point.distance(this.game.input.activePointer.position, this.game.input.activePointer.positionDown) > 150 && this.game.input.activePointer.duration > 100 && this.game.input.activePointer.duration < 250)
-        {
-            this.firstPointX = this.game.input.activePointer.positionDown.x;
-            this.firstPointY = this.game.input.activePointer.positionDown.y;
-
-            this.lastPointX = this.game.input.activePointer.position.x;
-            this.lastPointY = this.game.input.activePointer.position.y;
-
-            this.swiping = true;
+    move_camera_by_pointer: function(o_pointer) {
+        if (!o_pointer.timeDown) { return; }
+        if (o_pointer.isDown && !o_pointer.targetObject) {
+            if (this.o_mcamera) {
+                this.game.camera.x += this.o_mcamera.x - o_pointer.position.x;
+                this.game.camera.y += this.o_mcamera.y - o_pointer.position.y;
+            }
+            this.o_mcamera = o_pointer.position.clone();
         }
+        if (o_pointer.isUp) { this.o_mcamera = null; }
     }
-
   };
 
 

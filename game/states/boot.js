@@ -45,6 +45,16 @@ Boot.prototype = {
     this.game.input.maxPointers = 1;
     this.game.state.start('preload');
       
+    //scaling options
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    
+    //have the game centered horizontally
+    this.scale.pageAlignHorizontally = true;
+    this.scale.pageAlignVertically = true;
+
+    //screen size will be set automatically
+    this.scale.setScreenSize(true);
+      
     if (this.game.device.desktop){
         var stats = new Stats();
         stats.setMode(0); // 0: fps, 1: ms

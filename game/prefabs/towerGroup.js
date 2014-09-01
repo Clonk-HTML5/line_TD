@@ -49,7 +49,7 @@ TowerGroup.prototype.posit = function(pointer) {
         this.add(this.tower);
         this.enemys.forEachAlive(function(enemy) {
             enemy.blocked = true;
-            enemy.findPathTo(12, 26);
+            enemy.findPathTo(enemy.pathToX, enemy.pathToY);
         }, this);
         this.tileForbiden.push(index);
     }
