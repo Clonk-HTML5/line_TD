@@ -18,13 +18,18 @@ Preload.prototype = {
 //    this.load.tilemap('towerdefencemap', 'assets/maps/towerdefence.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
+//    this.load.tilemap('towerdefencemap', 'assets/maps/linetd.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('towerdefence', 'assets/maps/towerdefence.png');
     this.load.image('summerTiles', 'assets/maps/summerTiles.png');
+//    this.load.image('tileset_summer_grass_b', 'assets/maps/tileset_summer_grass_b.gif');
       
-//    this.load.spritesheet('tower', 'assets/sprites/tower_all_normal.png', 30, 30);
-    this.load.spritesheet('tower', 'assets/sprites/tower_human.png', 59, 64);
+    this.load.spritesheet('tower', 'assets/sprites/t_all_normal_small.png', 32, 32);
+//    this.load.spritesheet('tower', 'assets/sprites/tower_human.png', 59, 64);
     this.load.image('bullet', 'assets/sprites/bullet.png');
-    this.load.spritesheet('enemy', 'assets/sprites/peon.png', 37, 37);
+    this.load.spritesheet('enemy1', 'assets/sprites/peon.png', 37, 37);
+    this.load.spritesheet('enemy2', 'assets/sprites/grunt.png', 53, 53);
+    this.load.spritesheet('enemy3', 'assets/sprites/goblin.png', 44, 44);
+//    this.load.spritesheet('enemy', 'assets/sprites/peon16.png', 16, 16);
 
 
   },

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tileset_summer_grass_b" tilewidth="16" tileheight="16">
+  <image source="../../../../../../Users/ctt/Downloads/wtd_v0.5_sources/WTD Editor Source/WTD Editor/Resources/tileset_summer_grass_b.gif" width="128" height="256"/>
+ </tileset>
+ <layer name="Ground" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJydlUlLA0EQhfsakxFmsjguJxVBUXHXq4JLNLiPoEZBiXuIRkhAQX+7r7GKKYs5mDp85DH066ruquoMOueGwDAYAYdgEkyBaTADZpWeAwdGzwZYB1WwBR7AI7gHe2AAlEAZVJSuGT05sEsxj8A+fSuAFjgBIYhAkfxSnxo9fv0xxTwHZyCgPbqgQ3lGIm+pE6PHx72gmDe0R5/I/Yv2CMlTUvrK6PFxbynmE+1RELnfUa6cr9ZNo8fHfaaYVdrDf8uLWkUu7YtQ6abRw+dtZ8T1ub+A2P32Z4W8UjeMHj6v7Gfv7xe1Cl06FxWlE6OH50j2c17VivswFvfHum708BzJfuaZaNGdlV06C6HSdaOH50j2cyBqdUl3FIlfqTeNHu4rH7Pt0pkIKPcOrfd3VKR8pW4aPdxXsp9lrbg32RspXTN69PvMbw/PItcqdul7I3XN6Ml6n3OEz93PBM+dnn8Zt1dP1vssZ7Hj/s5irHRi9GS9zwHRFXuEdIZY6cToke+z761r8ArewDfViu9J/ndzvzYyPP897zvF/ACjYAyMgx0wDxbAIrEElsEKWAVrYJvWT/To+aSYP6Lechc=
+  </data>
+ </layer>
+</map>

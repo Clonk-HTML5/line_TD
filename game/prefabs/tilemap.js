@@ -25,7 +25,7 @@ var Tilemap = function(game, x, y, options) {
     
     this.marker = this.game.add.graphics();
     this.marker.lineStyle(2, 0x000000, 1);
-    this.marker.drawRect(0, 0, 32, 32);
+    this.marker.drawRect(0, 0, GlobalGame.tileSquare, GlobalGame.tileSquare);
     this.blocked = false;
 };
 
@@ -34,8 +34,8 @@ Tilemap.prototype.constructor = Tilemap;
 
 Tilemap.prototype.update = function() {
 
-        this.marker.x = this.groundlayer.getTileX(this.game.input.activePointer.worldX) * 32;
-        this.marker.y = this.groundlayer.getTileY(this.game.input.activePointer.worldY) * 32;
+        this.marker.x = this.groundlayer.getTileX(this.game.input.activePointer.worldX) * GlobalGame.tileSquare;
+        this.marker.y = this.groundlayer.getTileY(this.game.input.activePointer.worldY) * GlobalGame.tileSquare;
 
         if (this.game.input.mousePointer.isDown){
             this.blocked = true;

@@ -47,6 +47,7 @@ Boot.prototype = {
       
     //scaling options
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
     
     //have the game centered horizontally
     this.scale.pageAlignHorizontally = true;
