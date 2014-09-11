@@ -54,7 +54,7 @@ EnemyGroup.prototype.spawn = function() {
 };
 
 EnemyGroup.prototype.generateEnemy = function() {
-      this.enemy = new Enemy(this.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 'enemy'+this.round, 3);
+      this.enemy = new Enemy(this.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 'enemy'+this.round, 3, this.round);
       this.add(this.enemy);
 }
 

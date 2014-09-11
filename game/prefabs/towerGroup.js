@@ -32,9 +32,12 @@ var TowerGroup = function(game, enemys) {
     this.goldText = this.game.add.text(this.game.width - 100, 95, 'Gold: ' + this.gold,{ font: '16px Arial', fill: '#08d465', align: 'center'});
     this.goldText.fixedToCamera = true;
     
-    this.income = 100;
+    this.income = 50;
     this.incomeText = this.game.add.text(this.game.width - 115, 115, 'Income: ' + this.income,{ font: '16px Arial', fill: '#08d465', align: 'center'});
     this.incomeText.fixedToCamera = true;
+    this.QUARTERMINUTE = Phaser.Timer.MINUTE/3;
+    
+   this.game.time.events.loop(this.QUARTERMINUTE, this.incomeHandler, this);
 };
 
 TowerGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -44,7 +47,7 @@ TowerGroup.prototype.update = function() {
    if(this.tower){
         this.forEachAlive(function(tower) {
             this.enemys.forEachAlive(function(loopedEnemy) {
-//                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
+                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
 
                 this.game.physics.arcade.overlap(this.bullets, loopedEnemy, this.bulletHitsEnemy, null, this);
             }, this)
@@ -71,7 +74,7 @@ TowerGroup.prototype.posit = function(pointer) {
             this.gold -= this.towerCosts;
             this.goldText.setText('Gold: ' + this.gold);
             this.enemys.forEachAlive(function(enemy) {
-                enemy.blocked = true;
+//                enemy.blocked = true;
                 enemy.findPathTo(enemy.pathToX, enemy.pathToY);
             }, this);
             this.tileForbiden.push(index);
@@ -79,9 +82,17 @@ TowerGroup.prototype.posit = function(pointer) {
     }
 };
 
-TowerGroup.prototype.bulletHitsEnemy = function (bullet, enemy) {
+TowerGroup.prototype.incomeHandler = function () {
+    this.gold += this.income; 
+    this.goldText.setText('Gold: ' + this.gold);
+}
+
+TowerGroup.prototype.bulletHitsEnemy = function (enemy, bullet) {
     bullet.kill();
-    enemy.destroy();
+    enemy.health -= 1
+    if(enemy.health <= 0){
+        enemy.kill();
+    }
 }
 
 module.exports = TowerGroup;

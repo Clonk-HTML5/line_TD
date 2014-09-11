@@ -1,11 +1,12 @@
 'use strict';
 
-var Enemy = function(game, x, y, name, frame) {
+var Enemy = function(game, x, y, name, frame, round) {
   Phaser.Sprite.call(this, game, x, y, name, frame);
     this.anchor.setTo(0.5);
     this.speed = 1;
     this.speedX = 0;
     this.speedY = 0;
+    this.health = round;
 //    this.curTile = 0;
     if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin) this.pathfinder = this.game.plugins.plugins[0];
     this.pathfinder._easyStar.setIterationsPerCalculation(1000); 
