@@ -10,6 +10,73 @@
          "width":42,
          "x":0,
          "y":0
+        }, 
+        {
+         "height":30,
+         "name":"Objects",
+         "objects":[
+                {
+                 "gid":164,
+                 "height":0,
+                 "name":"Player2Start",
+                 "properties":
+                    {
+                     "type":"Player2Start"
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":32
+                }, 
+                {
+                 "gid":164,
+                 "height":0,
+                 "name":"Player1Start",
+                 "properties":
+                    {
+                     "type":"Player1Start"
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":352,
+                 "y":32
+                }, 
+                {
+                 "gid":167,
+                 "height":0,
+                 "name":"Player1End",
+                 "properties":
+                    {
+                     "type":"Player1End"
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":352,
+                 "y":864
+                }, 
+                {
+                 "gid":167,
+                 "height":0,
+                 "name":"Player2End",
+                 "properties":
+                    {
+                     "type":"Player2End"
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":864
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":42,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":

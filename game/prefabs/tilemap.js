@@ -6,7 +6,7 @@ var Tilemap = function(game, x, y, options) {
     if(options){
       // initialize your prefab here
         this.map = this.game.add.tilemap(options.tilemapName);
-
+        GlobalGame.map = this.map;
     //        this.map.addTilesetImage('mountain_landscape_23');
         this.map.addTilesetImage(options.tilesetName);
         for(var i = 0; i < options.layerNames.length; i++){

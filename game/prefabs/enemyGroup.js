@@ -12,6 +12,11 @@ var EnemyGroup = function(game) {
     this.round = 0;
     this.maxRounds = 3;
     
+    this.player1StartPoint = GlobalGame.Functions.findObjectsByType('Player1Start', GlobalGame.map, 'Objects');
+    this.player1EndPoint = GlobalGame.Functions.findObjectsByType('Player1End', GlobalGame.map, 'Objects'); 
+    this.player2StartPoint = GlobalGame.Functions.findObjectsByType('Player2Start', GlobalGame.map, 'Objects');
+    this.player2EndPoint = GlobalGame.Functions.findObjectsByType('Player2End', GlobalGame.map, 'Objects');
+    
     this.roundText = this.game.add.text(this.game.width - 100, 20, 'Round '+ this.round,{ font: '16px Arial', fill: '#08d465', align: 'center'});
     this.roundText.fixedToCamera = true;
     
@@ -31,8 +36,10 @@ EnemyGroup.prototype.update = function() {
         enemy.moveOnTilemap();
         if(this.game.physics.arcade.distanceToXY(enemy, enemy.pathToX*GlobalGame.tileSquare, enemy.pathToY*GlobalGame.tileSquare) <= 3){    
             enemy.kill();
-            this.lives--;
-            this.livesText.setText('Lives: '+ this.lives);
+            if(enemy.playerId === 1){
+                this.lives--;
+                this.livesText.setText('Lives: '+ this.lives);
+            }
         }
     }, this);
     if ( this.pauseKey.justPressed() ){
@@ -54,9 +61,10 @@ EnemyGroup.prototype.spawn = function() {
     
 };
 
-EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame) {
-      var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.round;
-      this.enemy = new Enemy(this.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 'enemy'+currentFrame, 3, currentFrame);
+EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player) {
+      var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.round,
+          playerId = player ? player : 1;
+      this.enemy = new Enemy(this.game, this['player'+playerId+'StartPoint'][0].x, this['player'+playerId+'StartPoint'][0].y, 'enemy'+currentFrame, 3, currentFrame, this['player'+playerId+'EndPoint'][0], playerId);
       this.add(this.enemy);
 }
 
@@ -69,7 +77,7 @@ EnemyGroup.prototype.showEnemyImages = function () {
         this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
     }
     this.spawnEnemyImageGroup.forEach(function(spawnEnemyImage) {
-        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''));}, this);
+        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''), 2);}, this);
     }, this);
 }
 

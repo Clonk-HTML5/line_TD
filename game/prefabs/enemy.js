@@ -1,7 +1,8 @@
 'use strict';
 
-var Enemy = function(game, x, y, name, frame, round) {
+var Enemy = function(game, x, y, name, frame, round, pathEndPoint, playerId) {
   Phaser.Sprite.call(this, game, x, y, name, frame);
+    this.playerId = playerId;
     this.anchor.setTo(0.5);
     this.speed = 1;
     this.speedX = 0;
@@ -14,10 +15,10 @@ var Enemy = function(game, x, y, name, frame, round) {
     this.curTile = 0;
     this.next_positX = 0;
     this.next_positY = 0;
-    this.pathToX = 12;
-    this.pathToY = 26;
+    this.pathToX = pathEndPoint.x/GlobalGame.tileSquare;
+    this.pathToY = pathEndPoint.y/GlobalGame.tileSquare;
     this.path = [];
-    this.findPathTo(12, 26, 12, 0);
+    this.findPathTo(this.pathToX, this.pathToY, this.x/GlobalGame.tileSquare, this.y/GlobalGame.tileSquare);
     this.nextTile();
     this.moveOnTilemap();
 };
