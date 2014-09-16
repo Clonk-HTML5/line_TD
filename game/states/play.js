@@ -8,6 +8,8 @@ function Play() {}
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.level1 = new Level1(this.game);
+		//debug plugin
+		this.game.add.plugin(Phaser.Plugin.Debug);
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.o_mcamera;
     },
