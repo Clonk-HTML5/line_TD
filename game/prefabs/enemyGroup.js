@@ -19,6 +19,7 @@ var EnemyGroup = function(game) {
     this.livesText.fixedToCamera = true;
     
     this.spawn();
+    this.showEnemyImages();
 };
 
 EnemyGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -53,9 +54,23 @@ EnemyGroup.prototype.spawn = function() {
     
 };
 
-EnemyGroup.prototype.generateEnemy = function() {
-      this.enemy = new Enemy(this.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 'enemy'+this.round, 3, this.round);
+EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame) {
+      var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.round;
+      this.enemy = new Enemy(this.game, 12*GlobalGame.tileSquare, 0*GlobalGame.tileSquare, 'enemy'+currentFrame, 3, currentFrame);
       this.add(this.enemy);
+}
+
+EnemyGroup.prototype.showEnemyImages = function () {
+    this.spawnEnemyImageGroup = this.game.add.group(this.game, this, 'spawnEnemyImageGroup')
+    for (var i = 1, len = this.maxRounds; i <= len; i++){
+        this.spawnEnemyImage = this.game.add.sprite(this.game.width-100, this.game.height - i*80, 'enemy'+i, 3);
+        this.spawnEnemyImage.anchor.set(0.5);
+        this.spawnEnemyImage.inputEnabled = true;
+        this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
+    }
+    this.spawnEnemyImageGroup.forEach(function(spawnEnemyImage) {
+        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''));}, this);
+    }, this);
 }
 
 

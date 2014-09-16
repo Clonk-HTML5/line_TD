@@ -43,8 +43,6 @@ Boot.prototype = {
   },
   create: function() {
     this.game.input.maxPointers = 1;
-    this.game.state.start('preload');
-      
     //scaling options
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -55,6 +53,8 @@ Boot.prototype = {
 
     //screen size will be set automatically
     this.scale.setScreenSize(true);
+      
+    this.game.state.start('preload');
       
     if (this.game.device.desktop){
         var stats = new Stats();

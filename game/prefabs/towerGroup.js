@@ -93,7 +93,7 @@ TowerGroup.prototype.incomeHandler = function () {
 TowerGroup.prototype.showTowerImages = function () {
     this.towerImageGroup = this.game.add.group(this.game, this, 'towerImageGroup')
     for (var i = 0, len = this.towerFrameNumbers.length; i < len; i++){
-        this.towerImage = this.game.add.sprite(50*(i+1), this.game.height - 50, 'tower', this.towerFrameNumbers[i]);
+        this.towerImage = this.game.add.sprite(50, this.game.height - (i+1)*80, 'tower', this.towerFrameNumbers[i]);
         this.towerImage.anchor.set(0.5);
         this.towerImage.inputEnabled = true;
         this.towerImageGroup.add(this.towerImage);
