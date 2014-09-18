@@ -66,7 +66,10 @@ TowerGroup.prototype.posit = function(pointer) {
             tileY = Math.floor(pointer.worldY / GlobalGame.tileSquare),
             index = String(eval(tileX + "" + tileY));
 
-        if (this.tileForbiden.indexOf(index) == -1) {
+        console.log(tileX)
+        console.log(tileY)
+        console.log(this.tileForbiden)
+        if (GlobalGame.map.getTile(tileX, tileY, 'Player1Build', true).index === 378 && this.tileForbiden.indexOf(index) == -1) {
             if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
                 this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
             }
