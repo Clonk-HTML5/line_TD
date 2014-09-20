@@ -27,16 +27,17 @@ var TowerGroup = function(game, enemys) {
     this.towerCosts = 20;
     this.towersBuilt = 0;
     this.maxTowers = 40;
+    this.font = { font: '16px Arial', fill: '#08d465', align: 'center'}
     
-    this.maxTowersText = this.game.add.text(this.game.width - 170, 75, 'Max Towers: ' + this.towersBuilt + ' / '+ this.maxTowers,{ font: '16px Arial', fill: '#08d465', align: 'center'});
+    this.maxTowersText = this.game.add.text(this.game.width - 170, 75, 'Max Towers: ' + this.towersBuilt + ' / '+ this.maxTowers, this.font);
     this.maxTowersText.fixedToCamera = true;
     
     this.gold = 100;
-    this.goldText = this.game.add.text(this.game.width - 100, 95, 'Gold: ' + this.gold,{ font: '16px Arial', fill: '#08d465', align: 'center'});
+    this.goldText = this.game.add.text(this.game.width - 100, 95, 'Gold: ' + this.gold, this.font);
     this.goldText.fixedToCamera = true;
     
     this.income = 50;
-    this.incomeText = this.game.add.text(this.game.width - 115, 115, 'Income: ' + this.income,{ font: '16px Arial', fill: '#08d465', align: 'center'});
+    this.incomeText = this.game.add.text(this.game.width - 115, 115, 'Income: ' + this.income, this.font);
     this.incomeText.fixedToCamera = true;
     this.QUARTERMINUTE = Phaser.Timer.MINUTE/3;
     
@@ -66,9 +67,6 @@ TowerGroup.prototype.posit = function(pointer) {
             tileY = Math.floor(pointer.worldY / GlobalGame.tileSquare),
             index = String(eval(tileX + "" + tileY));
 
-        console.log(tileX)
-        console.log(tileY)
-        console.log(this.tileForbiden)
         if (GlobalGame.map.getTile(tileX, tileY, 'Player1Build', true).index === 378 && this.tileForbiden.indexOf(index) == -1) {
             if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
                 this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);

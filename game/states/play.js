@@ -2,14 +2,19 @@
 
 var Pathfinding = require('../plugins/phaser_pathfinding-0.2.0');
 var Level1 = require('../prefabs/level1');
+var io = require('../plugins/socket.io');  
+var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
   
 function Play() {}
   Play.prototype = {
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.level1 = new Level1(this.game);
+        
+        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
+        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
 		//debug plugin
-		this.game.add.plugin(Phaser.Plugin.Debug);
+//		this.game.add.plugin(Phaser.Plugin.Debug);
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.o_mcamera;
     },
