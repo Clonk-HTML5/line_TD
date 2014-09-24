@@ -8,9 +8,38 @@
   <link href="css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div id="line-td"></div>
+  <div id="line-td">
+    <section id="network-ui">
+      <section id="login-ui">
+        <h1>Line TD</h1>
+        <p>Please fill in your Username</p>
+        <form name="userNameForm" id="userNameForm">
+            <input id="login" type="text"></input><span>User name</span><br>
+            <button type="submit">Log In</button>
+        </form>
+      </section>
+      <section id="lobby">
+        <h3>Lobby Members</h3>
+        <div id = "lobby-list"></div>
+      </section>
+      <section id="rooms">
+        <h3>Rooms</h3>
+        <button id="refreshLobby">refresh</button>
+        <div id="new-room-ui">
+        <form name="createNewRoomForm" id="createNewRoomForm">
+          <input id="new-room" type="text"></input><span>room name</span><br>
+          <button id="createRoom">create/enter new room</button>
+        </form>
+        </div>
+        <div id="room-list"></div>
+      </section>
+    </section>  
+  </div>
   <script src="js/phaser.js"></script>
   <script src="js/plugins/phaser_debug.js"></script>
+  <script src="js/plugins/underscore-min.js"></script>
+  <script src='js/plugins/socket.io.min.js'></script>
+  <script src="js/plugins/cloak.js"></script>
   <script src="js/game.js"></script>
 
 
