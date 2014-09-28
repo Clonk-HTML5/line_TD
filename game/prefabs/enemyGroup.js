@@ -17,6 +17,12 @@ var EnemyGroup = function(game) {
     this.player2StartPoint = GlobalGame.Functions.findObjectsByType('Player2Start', GlobalGame.map, 'Objects');
     this.player2EndPoint = GlobalGame.Functions.findObjectsByType('Player2End', GlobalGame.map, 'Objects');
     
+    if(this.game.state.getCurrentState().player > 1){
+        var playerCameraPos = this['player'+this.game.state.getCurrentState().player+'StartPoint'][0];
+        this.game.camera.x = playerCameraPos.x;
+        this.game.camera.y = playerCameraPos.y;
+    }
+    
     this.roundText = this.game.add.text(this.game.width - 100, 20, 'Round '+ this.round,{ font: '16px Arial', fill: '#08d465', align: 'center'});
     this.roundText.fixedToCamera = true;
     
@@ -54,7 +60,10 @@ EnemyGroup.prototype.spawn = function() {
     
     this.enemyGenerator = this.game.time.create(false);
     this.enemyGenerator.start();
-    this.enemyGenerator.repeat(Phaser.Timer.SECOND * 1.25, 5, this.generateEnemy, this);
+    this.enemyGenerator.repeat(Phaser.Timer.SECOND * 1.25, 5, function(){
+        this.generateEnemy(this.round, 1);
+        this.generateEnemy(this.round, 2);
+    }, this);
     this.enemyGenerator.onComplete.add(function(){
       this.game.time.events.add(Phaser.Timer.SECOND * 20, this.spawn, this);
     }, this);

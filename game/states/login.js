@@ -6,61 +6,85 @@
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-        GlobalGame.Multiplayer.functions = {
-          registerUsername: function(evt){
-            if (evt && evt.preventDefault) evt.preventDefault();
-            var loginUIElement = document.getElementById('login-ui'),
-                loginElement = document.getElementById('login');
-            if (loginElement.value.trim() === '') {
-              loginUIElement.innerHTML += '<p>Enter a valid username!</p>';
-              return;
-            }
-            GlobalGame.Multiplayer.userName = loginElement.value;
-            // Register our username with the server
-            cloak.message('registerUsername', {
-              username: GlobalGame.Multiplayer.userName
-            });
-            return;
-          },
-          createRoom: function(evt) {
-            if (evt && evt.preventDefault) evt.preventDefault();
-            var newRoomElement = document.getElementById('new-room'),
-                newRoomUIElement = document.getElementById('new-room-ui');
-            if (newRoomElement.value.trim() === '') {
-              newRoomUIElement.innerHTML += '<p>Enter a valid Roomname!</p>';
-              return;
-            }
-            cloak.message('createRoom', {
-              name: escape(newRoomElement.value)
-            });
-          },
-
-          refreshLobby: function(users) {
-            console.log('refreshing lobby');
-            cloak.message('listUsers');
-            cloak.message('listRooms');
-          },
-
-          refreshWaiting: function() {
-            cloak.message('refreshWaiting');
-          },
-
-          joinRoom: function(id) {
-            cloak.message('joinRoom', id);
-          }
-        }
         
         var networkElement = document.getElementById('network-ui'),
-            refreshLobby = document.getElementById('refreshLobby'),
-            createNewRoomForm = document.getElementById('createNewRoomForm'),
-            userNameForm = document.getElementById('userNameForm');
+        returnToLobby = document.getElementById('returnToLobby'),
+        refreshLobby = document.getElementById('refreshLobby'),
+        createNewRoomForm = document.getElementById('createNewRoomForm'),
+        userNameForm = document.getElementById('userNameForm'),
+        gameObject = this.game;
+        
+        GlobalGame.Multiplayer.functions = {
+              registerUsername: function(evt){
+                if (evt && evt.preventDefault) evt.preventDefault();
+                var loginUIElement = document.getElementById('login-ui'),
+                    loginElement = document.getElementById('login');
+                if (loginElement.value.trim() === '') {
+                  loginUIElement.innerHTML += '<p>Enter a valid username!</p>';
+                  return;
+                }
+                GlobalGame.Multiplayer.userName = loginElement.value;
+                localStorage.setItem("username", loginElement.value);
+                // Register our username with the server
+                cloak.message('registerUsername', {
+                  username: GlobalGame.Multiplayer.userName
+                });
+                return;
+              },
+              createRoom: function(evt) {
+                if (evt && evt.preventDefault) evt.preventDefault();
+                var newRoomElement = document.getElementById('new-room'),
+                    newRoomUIElement = document.getElementById('new-room-ui');
+                if (newRoomElement.value.trim() === '') {
+                  newRoomUIElement.innerHTML += '<p>Enter a valid Roomname!</p>';
+                  return;
+                }
+                cloak.message('createRoom', {
+                  name: escape(newRoomElement.value)
+                });
+              },
+
+              refreshLobby: function(users) {
+                console.log('refreshing lobby');
+                cloak.message('listUsers');
+                cloak.message('listRooms');
+              },
+
+              refreshWaiting: function() {
+                cloak.message('refreshWaiting');
+              },
+
+              joinRoom: function(id) {
+                cloak.message('joinRoom', id);
+              },
+              returnToLobby: function() {
+                  cloak.message('leaveRoom');
+                  console.log('ending game');
+                  GlobalGame.Multiplayer.functions.refreshLobby();
+                  document.getElementById('network-ui').style.display = 'block';
+                  gameObject.state.start('login');
+              },
+              // If passed "false", hides the gameOver dialog, otherwise displays string
+                showGameOver: function(msg) {
+                  var gameOverElement = document.getElementById('gameOver'),
+                      gameOverMsgElement = document.getElementById('gameOverMsg'),
+                      waitingForPlayerElem = document.getElementById('waitingForPlayer');
+                  if (msg === false)  {
+                    gameOverElement.style.display = 'none';
+                  }
+                  else {
+                    gameOverMsgElement.innerText = msg;
+                    gameOverElement.style.display = 'block';
+                    waitingForPlayerElem.style.display = 'none';
+                  }
+                }
+        }
         
         networkElement.style.display="block";
-        
+        returnToLobby.addEventListener("click", GlobalGame.Multiplayer.functions.returnToLobby, false)
         refreshLobby.addEventListener("click", GlobalGame.Multiplayer.functions.refreshLobby, false)
         createNewRoomForm.addEventListener("submit", GlobalGame.Multiplayer.functions.createRoom, false);
         userNameForm.addEventListener("submit", GlobalGame.Multiplayer.functions.registerUsername, false);
-        
         
         // cloak socket.io configuration
         cloak.configure({
@@ -119,9 +143,10 @@
 
             'joinRoomResponse': function(result) {
               if (result.success) {
-                game.room.id = result.id;
-                game.begin();
+                console.log('joined '+result)
                 GlobalGame.Multiplayer.functions.refreshWaiting();
+                networkElement.style.display="none";
+                gameObject.state.start('play', true, false, {room : result.id, player: result.userIndex});
               }
             },
 
@@ -141,31 +166,15 @@
             'roomCreated': function(result) {
               console.log(result.success ? 'room join success' : 'room join failure');
               if (result.success) {
-                game.room.id = result.roomId;
-                game.begin();
+//                game.room.id = result.roomId;
+//                game.begin();
+                networkElement.style.display="none";
+                  gameObject.state.start('play', true, false, {room : result.roomId});
               }
-            },
-
-            'cardsLeft': function(cardsLeft) {
-              document.getElementById('cardsLeft').innerText = cardsLeft;
-            },
-
-            'card': function(card) {
-              console.log('the card:', card);
-              game.drawCard.val = card.val;
-              game.drawCard.suit = card.suit;
-              game.drawCard.setFresh(true);
             },
 
             'userMessage': function(msg) {
               console.log('The server says: ' + msg);
-            },
-
-            'turn': function(msg) {
-              game.turn = msg;
-              console.log('Turn: ' + game.turn);
-              game.updateTurn();
-              GlobalGame.Multiplayer.functions.refreshWaiting();
             },
 
             'gameOver': function() {
@@ -192,7 +201,7 @@
                         '\nYour tiebreaker: ' + myTiebreaker +
                         '\nTheir tiebreaker: ' + theirTiebreaker;
               }
-              game.showGameOver(msg);
+              GlobalGame.Multiplayer.functions.showGameOver(msg);
             },
 
             'assignTeam': function(data) {
@@ -203,6 +212,16 @@
               game.updateTurn();
             },
 
+            'placedTower': function(data) {
+              console.log('target data', data);
+              //set the next card
+              game.drawCard.val = data[1].val;
+              game.drawCard.suit = data[1].suit;
+              // find the target and place the drawn card on it
+              var target = _.findWhere(game.targets, {targetId: data[0]});
+              target.placeCard();
+            },
+              
             'placedTarget': function(data) {
               console.log('target data', data);
               //set the next card
@@ -251,14 +270,20 @@
             'roomMemberLeft': function(user) {
               console.log('room member left', user);
               // The other player dropped, so we need to stop the game and show return to lobby prompt
-              game.showGameOver('The other player disconnected!');
               cloak.message('leaveRoom');
+              GlobalGame.Multiplayer.functions.showGameOver('The other player disconnected!');
               console.log('Removing you from the room because the other player disconnected.');
             },
 
             'begin': function() {
-              console.log('begin');
-              cloak.message('listRooms');
+                console.log('begin');
+                cloak.message('listRooms');
+                
+                if(localStorage.getItem("username")){
+                    cloak.message('registerUsername', {
+                      username: localStorage.getItem("username")
+                    });
+                }
             }
           }
 

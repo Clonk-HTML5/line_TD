@@ -1,5 +1,5 @@
 GlobalGame = {
-
+    
     level : 0,
     
     /* Here we've just got some global level vars that persist regardless of State swaps */
@@ -41,8 +41,7 @@ GlobalGame = {
             });
             return result;
           }
-    }
-
+    },
 };
 
 function Boot() {

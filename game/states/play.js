@@ -7,6 +7,10 @@ var Level1 = require('../prefabs/level1');
   
 function Play() {}
   Play.prototype = {
+    init: function(options) {
+        this.room = options.room ? options.room : false;
+        this.player = options.player ? options.player : 1;
+    },
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.level1 = new Level1(this.game);
