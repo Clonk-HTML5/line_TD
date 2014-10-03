@@ -61,13 +61,14 @@ TowerGroup.prototype.update = function() {
 
 TowerGroup.prototype.posit = function(pointer) {
     if(this.towersBuilt < this.maxTowers && this.gold >= this.towerCosts){
-        var tileworldX = pointer.worldX - (pointer.worldX % GlobalGame.tileSquare),
-            tileworldY = pointer.worldY - (pointer.worldY % GlobalGame.tileSquare),
-            tileX = Math.floor(pointer.worldX / GlobalGame.tileSquare),
-            tileY = Math.floor(pointer.worldY / GlobalGame.tileSquare),
-            index = String(eval(tileX + "" + tileY));
-
+            var tileworldX = pointer.worldX - (pointer.worldX % GlobalGame.tileSquare),
+                tileworldY = pointer.worldY - (pointer.worldY % GlobalGame.tileSquare),
+                tileX = Math.floor(pointer.worldX / GlobalGame.tileSquare),
+                tileY = Math.floor(pointer.worldY / GlobalGame.tileSquare),
+                index = String(eval(tileX + "" + tileY));
+        
         if (GlobalGame.map.getTile(tileX, tileY, 'Player'+this.game.state.getCurrentState().player+'Build', true).index === 378 && this.tileForbiden.indexOf(index) == -1) {
+            cloak.message('buildTower', {x: tileworldX, y: tileworldY, tileX: tileX, tileY: tileY, frame: this.currentTowerFrame});
             if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
                 this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
             }
@@ -78,11 +79,28 @@ TowerGroup.prototype.posit = function(pointer) {
             this.gold -= this.towerCosts;
             this.goldText.setText('Gold: ' + this.gold);
             this.enemys.forEachAlive(function(enemy) {
-//                enemy.blocked = true;
                 enemy.findPathTo(enemy.pathToX, enemy.pathToY);
             }, this);
             this.tileForbiden.push(index);
         }
+    }
+};
+
+TowerGroup.prototype.enemyPositTower = function(pos) {
+    if(this.towersBuilt < this.maxTowers && this.gold >= this.towerCosts){
+            var tileworldX = pos.x,
+                tileworldY = pos.y,
+                tileX = pos.tileX,
+                tileY = pos.tileY;
+
+            if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
+                this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
+            }
+            this.tower = new Tower(this.game, tileworldX, tileworldY, pos.frame, tileX, tileY, 'tower', this.bullets);
+            this.add(this.tower);
+            this.enemys.forEachAlive(function(enemy) {
+                enemy.findPathTo(enemy.pathToX, enemy.pathToY);
+            }, this);
     }
 };
 

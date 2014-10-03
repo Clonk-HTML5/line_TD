@@ -10,11 +10,19 @@ function Play() {}
     init: function(options) {
         this.room = options.room ? options.room : false;
         this.player = options.player ? options.player : 1;
+        this.enemyPlayer = this.player === 1 ? 2 : 1;
+        this.level = options.level ? options.level : 1;
     },
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.level1 = new Level1(this.game);
-        
+        switch(this.level){
+            case 1:
+                this.currentLevel = new Level1(this.game);
+                break;
+            case 2:
+//                this.currentLevel = new Level2(this.game);
+                break;
+        }
 //        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
 //        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
 		//debug plugin

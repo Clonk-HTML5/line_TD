@@ -6,7 +6,6 @@ var EnemyGroup = function(game) {
    Phaser.Group.call(this, game);
     this.enableBody = true;
     this.physicsBodyType = Phaser.Physics.ARCADE;
-    this.pauseKey = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     this.path = [];
     this.lives = 30;
     this.round = 0;
@@ -48,9 +47,6 @@ EnemyGroup.prototype.update = function() {
             }
         }
     }, this);
-    if ( this.pauseKey.justPressed() ){
-        this.spawn();
-    }
 };
 
 EnemyGroup.prototype.spawn = function() {
@@ -70,9 +66,10 @@ EnemyGroup.prototype.spawn = function() {
     
 };
 
-EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player) {
+EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player, enemyIsMultiplayer) {
       var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.round,
           playerId = player ? player : 1;
+      if(enemyIsMultiplayer) cloak.message('spawnEnemey', {player: playerId, frame: currentFrame});
       this.enemy = new Enemy(this.game, this['player'+playerId+'StartPoint'][0].x, this['player'+playerId+'StartPoint'][0].y, 'enemy'+currentFrame, 3, currentFrame, this['player'+playerId+'EndPoint'][0], playerId);
       this.add(this.enemy);
 }
@@ -86,7 +83,7 @@ EnemyGroup.prototype.showEnemyImages = function () {
         this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
     }
     this.spawnEnemyImageGroup.forEach(function(spawnEnemyImage) {
-        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''), 2);}, this);
+        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''), this.game.state.getCurrentState().enemyPlayer, true);}, this);
     }, this);
 }
 

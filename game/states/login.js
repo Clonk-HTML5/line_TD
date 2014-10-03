@@ -64,6 +64,14 @@
                   document.getElementById('network-ui').style.display = 'block';
                   gameObject.state.start('login');
               },
+              buildTower: function(pos) {
+                    console.log('buildTower', pos)
+                    gameObject.state.getCurrentState().currentLevel.towers.enemyPositTower(pos);
+                },
+              spawnEnemey: function(enemy) {
+                    console.log('spawnEnemey', enemy)
+                    gameObject.state.getCurrentState().currentLevel.enemys.generateEnemy(enemy.frame, enemy.player);
+              },
               // If passed "false", hides the gameOver dialog, otherwise displays string
                 showGameOver: function(msg) {
                   var gameOverElement = document.getElementById('gameOver'),
@@ -150,7 +158,7 @@
               }
             },
 
-            refreshWaitingResponse: function(members) {
+            'refreshWaitingResponse': function(members) {
               if (!members) {
                 return;
               }
@@ -204,33 +212,14 @@
               GlobalGame.Multiplayer.functions.showGameOver(msg);
             },
 
-            'assignTeam': function(data) {
-              console.log('my team is', data.team);
-              game.team = data.team;
-              game.otherTeam = (game.team === 'red') ? 'black' : 'red';
-              game.turn = data.turn;
-              game.updateTurn();
+            'buildTower': function(data) {
+              console.log('tower data', data);
+              GlobalGame.Multiplayer.functions.buildTower(data);
             },
-
-            'placedTower': function(data) {
-              console.log('target data', data);
-              //set the next card
-              game.drawCard.val = data[1].val;
-              game.drawCard.suit = data[1].suit;
-              // find the target and place the drawn card on it
-              var target = _.findWhere(game.targets, {targetId: data[0]});
-              target.placeCard();
+            'spawnEnemey': function(data) {
+              console.log('spawnEnemey data', data);
+              GlobalGame.Multiplayer.functions.spawnEnemey(data);
             },
-              
-            'placedTarget': function(data) {
-              console.log('target data', data);
-              //set the next card
-              game.drawCard.val = data[1].val;
-              game.drawCard.suit = data[1].suit;
-              // find the target and place the drawn card on it
-              var target = _.findWhere(game.targets, {targetId: data[0]});
-              target.placeCard();
-            }
           },
 
           serverEvents: {
@@ -289,7 +278,7 @@
 
         });
 
-        cloak.run('http://localhost:8090');
+        cloak.run('http://192.168.1.5:8090');
     },
     update: function() {
       // state update code
