@@ -18,9 +18,9 @@ var Enemy = function(game, x, y, name, frame, round, pathEndPoint, playerId) {
     this.pathToX = pathEndPoint.x/GlobalGame.tileSquare;
     this.pathToY = pathEndPoint.y/GlobalGame.tileSquare;
     this.path = [];
-    this.findPathTo(this.pathToX, this.pathToY, this.x/GlobalGame.tileSquare, this.y/GlobalGame.tileSquare);
-    this.nextTile();
-    this.moveOnTilemap();
+//    this.findPathTo(this.pathToX, this.pathToY, this.x/GlobalGame.tileSquare, this.y/GlobalGame.tileSquare);
+//    this.nextTile();
+//    this.moveOnTilemap();
 };
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -44,7 +44,7 @@ Enemy.prototype.moveElmt = function() {
         );
 }
 Enemy.prototype.moveOnTilemap = function(i) {
-    if(this.path){
+    if(this.parent['path'+this.playerId]){
         this.x += this.speedX;
         this.y += this.speedY;
 
@@ -67,11 +67,11 @@ Enemy.prototype.moveOnTilemap = function(i) {
     }
 }
 Enemy.prototype.nextTile = function() {
-    if(this.path){
-        if(this.curTile < this.path.length) this.curTile++;
-        if(this.path[this.curTile]){
-            this.next_positX = parseInt(this.path[this.curTile].x * GlobalGame.tileSquare);
-            this.next_positY = parseInt(this.path[this.curTile].y * GlobalGame.tileSquare);
+    if(this.parent['path'+this.playerId]){
+        if(this.curTile < this.parent['path'+this.playerId].length) this.curTile++;
+        if(this.parent['path'+this.playerId][this.curTile]){
+            this.next_positX = parseInt(this.parent['path'+this.playerId][this.curTile].x * GlobalGame.tileSquare);
+            this.next_positY = parseInt(this.parent['path'+this.playerId][this.curTile].y * GlobalGame.tileSquare);
         }
         if (this.next_positX > this.x) {
             this.speedX = this.speed;

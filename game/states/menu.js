@@ -22,8 +22,8 @@ Menu.prototype = {
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
-//      this.game.state.start('play');
-      this.game.state.start('login');
+        this.game.state.start('play', true, false, {player: 1});
+//      this.game.state.start('login');
     }
   }
 };

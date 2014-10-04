@@ -51,7 +51,7 @@ TowerGroup.prototype.update = function() {
    if(this.tower){
         this.forEachAlive(function(tower) {
             this.enemys.forEachAlive(function(loopedEnemy) {
-                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
+//                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
 
                 this.game.physics.arcade.overlap(this.bullets, loopedEnemy, this.bulletHitsEnemy, null, this);
             }, this)
@@ -68,7 +68,7 @@ TowerGroup.prototype.posit = function(pointer) {
                 index = String(eval(tileX + "" + tileY));
         
         if (GlobalGame.map.getTile(tileX, tileY, 'Player'+this.game.state.getCurrentState().player+'Build', true).index === 378 && this.tileForbiden.indexOf(index) == -1) {
-            cloak.message('buildTower', {x: tileworldX, y: tileworldY, tileX: tileX, tileY: tileY, frame: this.currentTowerFrame});
+            if(cloak.connected()) cloak.message('buildTower', {x: tileworldX, y: tileworldY, tileX: tileX, tileY: tileY, frame: this.currentTowerFrame});
             if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
                 this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
             }
@@ -78,9 +78,9 @@ TowerGroup.prototype.posit = function(pointer) {
             this.maxTowersText.setText('Max Towers: ' + this.towersBuilt + ' / '+ this.maxTowers);
             this.gold -= this.towerCosts;
             this.goldText.setText('Gold: ' + this.gold);
-            this.enemys.forEachAlive(function(enemy) {
-                enemy.findPathTo(enemy.pathToX, enemy.pathToY);
-            }, this);
+            for(var i = 1; i <= this.game.state.getCurrentState().countPlayers; i++){
+                this.enemys.findPathTo(this.enemys['player'+i+'StartPoint'][0], this.enemys['player'+i+'EndPoint'][0], i);
+            }
             this.tileForbiden.push(index);
         }
     }
@@ -98,9 +98,9 @@ TowerGroup.prototype.enemyPositTower = function(pos) {
             }
             this.tower = new Tower(this.game, tileworldX, tileworldY, pos.frame, tileX, tileY, 'tower', this.bullets);
             this.add(this.tower);
-            this.enemys.forEachAlive(function(enemy) {
-                enemy.findPathTo(enemy.pathToX, enemy.pathToY);
-            }, this);
+            for(var i = 1; i <= this.game.state.getCurrentState().countPlayers; i++){
+                this.enemys.findPathTo(this.enemys['player'+i+'StartPoint'][0], this.enemys['player'+i+'EndPoint'][0], i);
+            }
     }
 };
 
