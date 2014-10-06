@@ -10,8 +10,7 @@ function Play() {}
     init: function(options) {
             if(cloak.connected()) this.room = options.room ? options.room : false;
             this.player = options.player ? options.player : 1;
-//            this.enemyPlayer = this.player === 1 ? 2 : 1;
-            this.enemyPlayer = 1;
+            this.enemyPlayer = this.player === 1 ? 2 : 1;
             this.countPlayers = 2;
             this.level = options.level ? options.level : 1;
     },

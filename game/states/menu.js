@@ -7,6 +7,8 @@ Menu.prototype = {
 
   },
   create: function() {
+    this.game.add.tileSprite(0, 0, 1000, 800, 'menu_bg');
+      
     var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
     this.sprite = this.game.add.sprite(this.game.world.centerX, 138, 'yeoman');
     this.sprite.anchor.setTo(0.5, 0.5);
@@ -22,8 +24,8 @@ Menu.prototype = {
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {
-        this.game.state.start('play', true, false, {player: 1});
-//      this.game.state.start('login');
+//        this.game.state.start('play', true, false, {player: 1});
+        this.game.state.start('login');
     }
   }
 };

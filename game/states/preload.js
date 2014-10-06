@@ -13,6 +13,7 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
     this.load.image('yeoman', 'assets/yeoman-logo.png');
+    this.load.image('menu_bg', 'assets/sprites/menu/menu_bg.png');
 //    this.load.tilemap('map', 'assets/maps/garden.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('mountain_landscape_23', 'assets/maps/mountain_landscape_23.png');
 //    this.load.tilemap('towerdefencemap', 'assets/maps/towerdefence.json', null, Phaser.Tilemap.TILED_JSON);
