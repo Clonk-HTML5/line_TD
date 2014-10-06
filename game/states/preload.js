@@ -14,14 +14,10 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
     this.load.image('yeoman', 'assets/yeoman-logo.png');
     this.load.image('menu_bg', 'assets/sprites/menu/menu_bg.png');
-//    this.load.tilemap('map', 'assets/maps/garden.json', null, Phaser.Tilemap.TILED_JSON);
-//    this.load.image('mountain_landscape_23', 'assets/maps/mountain_landscape_23.png');
-//    this.load.tilemap('towerdefencemap', 'assets/maps/towerdefence.json', null, Phaser.Tilemap.TILED_JSON);
-//    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
-//    this.load.tilemap('towerdefencemap', 'assets/maps/linetd.json', null, Phaser.Tilemap.TILED_JSON);
-//    this.load.image('towerdefence', 'assets/maps/towerdefence.png');
-    this.load.image('summerTiles', 'assets/maps/summerTiles.png');
+//    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('towerdefencemap', 'assets/maps/ruins.json', null, Phaser.Tilemap.TILED_JSON);
+//    this.load.image('summerTiles', 'assets/maps/summerTiles.png');
+    this.load.image('tileset_ruins_c', 'assets/maps/tileset_ruins_c.gif');
 //    this.load.image('tileset_summer_grass_b', 'assets/maps/tileset_summer_grass_b.gif');
       
     this.load.spritesheet('tower', 'assets/sprites/t_all_normal_small.png', 32, 32);

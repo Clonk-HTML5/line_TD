@@ -358,7 +358,7 @@ EasyStar.js = function() {
 		if (startX===endX && startY===endY) {
 			callback([]);
 		}
-
+        
 		//End point is not an acceptable tile.
 		var endTile = collisionGrid[endY][endX];
 		var isAcceptable = false;

@@ -74,11 +74,13 @@ EnemyGroup.prototype.spawn = function() {
 };
 
 EnemyGroup.prototype.findPathTo = function(from, to, playerId) {
+    if(from && to){
         this.pathfinder.setCallbackFunction(function(path) {
-                this['path'+playerId] = path || [];
+            this['path'+playerId] = path || [];
         }.bind(this));
-    this.pathfinder.preparePathCalculation([from.x/GlobalGame.tileSquare ,from.y/GlobalGame.tileSquare], [to.x/GlobalGame.tileSquare,to.y/GlobalGame.tileSquare]);
-    this.pathfinder.calculatePath();
+        this.pathfinder.preparePathCalculation([from.x/GlobalGame.tileSquare ,from.y/GlobalGame.tileSquare], [to.x/GlobalGame.tileSquare,to.y/GlobalGame.tileSquare]);
+        this.pathfinder.calculatePath();
+    }
 };
 
 EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player, enemyIsMultiplayer) {
