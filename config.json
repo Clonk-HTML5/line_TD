@@ -1,5 +1,5 @@
 {
   "projectName": "line_td",
-  "gameWidth": "window.innerWidth",
-  "gameHeight": "window.innerHeight"
+  "gameWidth": "800",
+  "gameHeight": "600"
 }

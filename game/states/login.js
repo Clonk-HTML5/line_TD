@@ -278,7 +278,8 @@
 
         });
 
-        cloak.run('http://192.168.1.5:8090');
+//        cloak.run('http://192.168.1.5:8090');
+        cloak.run('http://54.85.78.181:8090/');
 //        cloak.run('http://linetdserver-planefight.rhcloud.com:8000');
     },
     update: function() {
