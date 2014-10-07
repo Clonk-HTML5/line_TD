@@ -630,6 +630,16 @@ Phaser.Plugin.PathFinderPlugin.prototype.setGrid = function (grid, walkables, it
     **/
     Phaser.Plugin.PathFinderPlugin.prototype.avoidAdditionalPoint = function(x, y) {
         this._easyStar.avoidAdditionalPoint(x,y);
+    }; 
+
+	/**
+	* Stop avoiding a particular point on the grid.
+	*
+	* @param {Number} x The x value of the point to stop avoiding.
+	* @param {Number} y The y value of the point to stop avoiding.
+	**/
+    Phaser.Plugin.PathFinderPlugin.prototype.stopAvoidingAdditionalPoint = function(x, y) {
+        this._easyStar.stopAvoidingAdditionalPoint(x,y);
     };
 
 /**

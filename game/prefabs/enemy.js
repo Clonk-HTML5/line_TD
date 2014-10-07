@@ -17,24 +17,10 @@ var Enemy = function(game, x, y, name, frame, round, pathEndPoint, playerId) {
     this.next_positY = 0;
     this.pathToX = pathEndPoint.x/GlobalGame.tileSquare;
     this.pathToY = pathEndPoint.y/GlobalGame.tileSquare;
-    this.path = [];
-//    this.findPathTo(this.pathToX, this.pathToY, this.x/GlobalGame.tileSquare, this.y/GlobalGame.tileSquare);
-//    this.nextTile();
-//    this.moveOnTilemap();
 };
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
-
-Enemy.prototype.findPathTo = function(tilex, tiley, fromx ,fromy) {
-        this.pathfinder.setCallbackFunction(function(path) {
-                this.path = path || [];
-                this.blocked = false;
-                this.nextTile();
-        }.bind(this));
-    this.pathfinder.preparePathCalculation([fromx || parseInt(this.x/GlobalGame.tileSquare),fromy || parseInt(this.y/GlobalGame.tileSquare)], [tilex,tiley]);
-    this.pathfinder.calculatePath();
-};
 
 Enemy.prototype.moveElmt = function() {
         this.game.physics.arcade.moveToXY(this, this.next_positX, this.next_positY, 100);

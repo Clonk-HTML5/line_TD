@@ -5,9 +5,6 @@ var Tower = require('./tower');
 var TowerGroup = function(game, enemys) {
   Phaser.Group.call(this, game);
 
-  // initialize your prefab here
-//    this.tower = new Tower(this.game, 13*GlobalGame.tileSquare, 15*GlobalGame.tileSquare, 3);
-//    this.add(this.tower);
     this.towerFrameNumbers = [1,3,5,7];
     this.currentTowerFrame = 3;
     this.tileForbiden = ["9", "10"];
@@ -67,23 +64,23 @@ TowerGroup.prototype.posit = function(pointer) {
                 tileY = Math.floor(pointer.worldY / GlobalGame.tileSquare),
                 index = String(eval(tileX + "" + tileY)),
                 buildAreaFromTiled = GlobalGame.map.getTile(tileX, tileY, 'Player'+this.game.state.getCurrentState().player+'Build', true).index;
-        
-        if ((buildAreaFromTiled === 378 || buildAreaFromTiled === 128) && this.tileForbiden.indexOf(index) == -1) {
-            if(cloak.connected()) cloak.message('buildTower', {x: tileworldX, y: tileworldY, tileX: tileX, tileY: tileY, frame: this.currentTowerFrame});
-            if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin){
-                this.game.plugins.plugins[0].avoidAdditionalPoint(tileX, tileY);
+             this.enemys.pathfinder.avoidAdditionalPoint(tileX, tileY);
+            var currentPlayer = this.game.state.getCurrentState().player;
+            this.enemys.findPathTo(this.enemys['player'+currentPlayer+'StartPoint'][0], this.enemys['player'+currentPlayer+'EndPoint'][0], currentPlayer, function(path){
+            if ((buildAreaFromTiled === 378 || buildAreaFromTiled === 128) && this.tileForbiden.indexOf(index) == -1 && path) {
+                if(cloak.connected()) cloak.message('buildTower', {x: tileworldX, y: tileworldY, tileX: tileX, tileY: tileY, frame: this.currentTowerFrame});
+                this.tower = new Tower(this.game, tileworldX, tileworldY, this.currentTowerFrame, tileX, tileY, 'tower', this.bullets);
+                this.add(this.tower);
+                this.towersBuilt++;
+                this.maxTowersText.setText('Max Towers: ' + this.towersBuilt + ' / '+ this.maxTowers);
+                this.gold -= this.towerCosts;
+                this.goldText.setText('Gold: ' + this.gold);
+                this.tileForbiden.push(index);
             }
-            this.tower = new Tower(this.game, tileworldX, tileworldY, this.currentTowerFrame, tileX, tileY, 'tower', this.bullets);
-            this.add(this.tower);
-            this.towersBuilt++;
-            this.maxTowersText.setText('Max Towers: ' + this.towersBuilt + ' / '+ this.maxTowers);
-            this.gold -= this.towerCosts;
-            this.goldText.setText('Gold: ' + this.gold);
-            for(var i = 1; i <= this.game.state.getCurrentState().countPlayers; i++){
-                this.enemys.findPathTo(this.enemys['player'+i+'StartPoint'][0], this.enemys['player'+i+'EndPoint'][0], i);
+            if(path === null){
+                this.enemys.pathfinder.stopAvoidingAdditionalPoint(tileX, tileY);
             }
-            this.tileForbiden.push(index);
-        }
+        }.bind(this));
     }
 };
 
