@@ -14,6 +14,8 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
     this.load.image('yeoman', 'assets/yeoman-logo.png');
     this.load.image('menu_bg', 'assets/sprites/menu/menu_bg.png');
+    this.load.image('wc3_menu', 'assets/sprites/menu/wc3_menu.png');
+    this.load.atlas('wc3_button', 'assets/sprites/menu/wc3_button.png', 'assets/sprites/menu/wc3_button.json');
 //    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('towerdefencemap', 'assets/maps/ruins.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('summerTiles', 'assets/maps/summerTiles.png');

@@ -43,13 +43,22 @@ button:hover {
 #network-ui {
   display: none;
   position: absolute;
-  top: 20%;
-  left: 30%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+/*
   width: 400px;
   max-width: 600px;
+*/
   margin: 5em auto 0;
   padding: 1em;
-  background: #ded;
+  background: #f4f4f4;
   border-radius: 5px;
   box-shadow: -3px -3px 5px rgba(0,75,0,.25),
               -3px  3px 5px rgba(0,75,0,.25),
