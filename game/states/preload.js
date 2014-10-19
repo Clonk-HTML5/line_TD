@@ -16,6 +16,10 @@ Preload.prototype = {
     this.load.image('menu_bg', 'assets/sprites/menu/menu_bg.png');
     this.load.image('wc3_menu', 'assets/sprites/menu/wc3_menu.png');
     this.load.atlas('wc3_button', 'assets/sprites/menu/wc3_button.png', 'assets/sprites/menu/wc3_button.json');
+    this.load.spritesheet('rain', 'assets/sprites/menu/rain.png', 17, 17);
+    
+    this.load.image('hud_top', 'assets/sprites/menu/panda_hud_top.png');
+    this.load.image('hud_bottom', 'assets/sprites/menu/panda_hud_bottom.png');
 //    this.load.tilemap('towerdefencemap', 'assets/maps/wc2_td_small.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.tilemap('towerdefencemap', 'assets/maps/ruins.json', null, Phaser.Tilemap.TILED_JSON);
 //    this.load.image('summerTiles', 'assets/maps/summerTiles.png');

@@ -5,7 +5,8 @@ body {
   background: #333;
 }
 
-#line-td{
+#line_td{
+    position: relative;
 }
 
 a:link, a:visited, a:active {
@@ -22,17 +23,21 @@ input {
 }
 
 button {
-  margin: .5em 0 0 0;
-  border: solid #555 1px;
-  border-radius: 5px;
-  background-image: linear-gradient(to bottom, white, #98d095);
-  font-size: 1em;
-  padding: .3em .5em; 
-  cursor: pointer;
+    background: url(../assets/Panduitga/button.gif) center no-repeat;
+    width: 140px;
+    height: 19px;
+    border: 0px;
+    padding: 0px;
+    margin: 2px;
+    text-align: center;
+    line-height: 18px;
+    color: #60A600;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
 button:hover {
-  background: #98d095;
+  color: #E07000;
 }
 
 #grow21 {
@@ -43,27 +48,19 @@ button:hover {
 #network-ui {
   display: none;
   position: absolute;
-  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  margin: 0 auto;
+/*
   width: 50%;
   height: 50%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; 
-/*
-  width: 400px;
-  max-width: 600px;
 */
-  margin: 5em auto 0;
-  padding: 1em;
-  background: #f4f4f4;
-  border-radius: 5px;
-  box-shadow: -3px -3px 5px rgba(0,75,0,.25),
-              -3px  3px 5px rgba(0,75,0,.25),
-               3px -3px 5px rgba(0,75,0,.25),
-               3px  3px 5px rgba(0,75,0,.25);
+}
+
+.content{
+    color: #60A600;
+    padding: 1em;
 }
 
 #info {
@@ -126,4 +123,120 @@ button:hover {
   float: right;
   margin-top: 5px;
   display: none;
+}
+
+
+/**
+* BORDERS
+*/
+
+.wbt {
+	background: url(../assets/Panduitga/top.gif) repeat-x;
+	width: 100%;
+	height: 35px;
+	vertical-align: top;
+}
+.wbl {
+	background: url(../assets/Panduitga/left.gif) repeat-y bottom;
+	width: 35px;
+	vertical-align: top;
+}
+.wbm {
+	background: url(../assets/Panduitga/background.gif);
+}
+
+.wbtl {
+	width: 35px;
+	height: 35px;
+}
+
+.wbtl {
+	background: url(../assets/Panduitga/top_left_a.gif) no-repeat;
+}
+
+.wbtlb {
+	background: url(../assets/Panduitga/top_left_b.gif) no-repeat;
+	width: 55px;
+	height: 35px;
+	float: left;
+}
+
+.wbtrb {
+	background: url(../assets/Panduitga/top_right_a.gif) no-repeat;
+	width: 55px;
+	height: 35px;
+	float: right;
+}
+.wbtr {
+	background: url(../assets/Panduitga/top_right_b.gif) no-repeat;
+	height: 35px;
+	width: 35px;
+}
+
+.wblp {
+	background: url(../assets/Panduitga/top_left_pic.gif) no-repeat;
+	width: 35px;
+	height: 26px;
+}
+
+.wbr {
+	background: url(../assets/Panduitga/right.gif) repeat-y bottom;
+	width: 35px;
+	vertical-align: top;
+}
+.wbrp {
+	background: url(../assets/Panduitga/top_right_pic.gif) no-repeat;
+	width: 35px;
+	height: 26px;
+}
+.wbl2 {
+	background: url(../assets/Panduitga/left.gif) repeat-y;
+	vertical-align: bottom;
+}
+.wbr2 {
+	background: url(../assets/Panduitga/right.gif) repeat-y;
+	vertical-align: bottom;
+}
+.wbblp {
+	background: url(../assets/Panduitga/bottom_left_pic.gif) no-repeat;
+	width: 35px;
+	height: 50px;
+}
+.wbbrp {
+	background: url(../assets/Panduitga/bottom_right_pic.gif) no-repeat;
+	width: 35px;
+	height: 50px;
+}
+
+.wbbla {
+	background: url(../assets/Panduitga/bottom_left_a.gif) no-repeat;
+	width: 35px;
+	height: 35px;
+}
+
+.wbb {
+	background: url(../assets/Panduitga/bottom.gif) repeat-x;
+	height: 35px;
+	
+}
+
+.wbblb {
+	background: url(../assets/Panduitga/bottom_left_b.gif) no-repeat;
+	width: 10px;
+	height: 35px;
+	float: left;
+}
+
+.wbbrb {
+	background: url(../assets/Panduitga/bottom_right_a.gif) no-repeat;
+	width: 10px;
+	height: 35px;
+	float: right;
+}
+
+.wbbra {
+	background: url(../assets/Panduitga/bottom_right_b.gif) no-repeat;
+	width: 35px;
+	height: 35px;
+	float: right;
 }

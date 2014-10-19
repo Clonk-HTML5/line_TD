@@ -8,7 +8,7 @@
   <link href="css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <div id="line-td">
+  <div id="line_td">
     <section id="game-ui">
       <section id="gameOver">
         <span id="gameOverMsg">...</span><br>
@@ -19,34 +19,87 @@
         </section>
     </section>
     <section id="network-ui">
-      <section id="login-ui">
-        <h1>Line TD</h1>
-        <p>Please fill in your Username</p>
-        <form name="userNameForm" id="userNameForm">
-            <input id="login" type="text"></input><span>User name</span><br>
-            <button type="submit">Log In</button>
-        </form>
-      </section>
-      <section id="lobby">
-        <h3>Lobby Members</h3>
-        <div id = "lobby-list"></div>
-      </section>
-      <section id="rooms">
-        <h3>Rooms</h3>
-        <button id="refreshLobby">refresh</button>
-        <div id="new-room-ui">
-        <form name="createNewRoomForm" id="createNewRoomForm">
-          <input id="new-room" type="text"></input><span>room name</span><br>
-          <button id="createRoom">create/enter new room</button>
-        </form>
-        </div>
-        <div id="room-list"></div>
-        <section id="waitingForPlayer">
-            Waiting for other player...
-        </section>
-      </section>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tbody>
+            <tr>
+              <td class="wbtl">
+              </td>
+              <td class="wbt">
+                <div class="wbtlb">
+                </div>
+                <div class="wbtrb">
+                </div>
+              </td>
+              <td class="wbtr">
+              </td>
+            </tr>
+              <tr>
+                <td class="wbl">
+                  <div class="wblp">
+                  </div>
+              </td>
+              <td rowspan="2" class="wbm">
+                  <div class="content">
+                      <section id="login-ui">
+                        <h1>Line TD</h1>
+                        <p>Please fill in your Username</p>
+                        <form name="userNameForm" id="userNameForm">
+                            <input id="login" type="text" placeholder="your username" />
+                            <button type="submit">login</button>
+                        </form>
+                      </section>
+                      <section id="lobby">
+                        <h3>Lobby Members</h3>
+                        <div id = "lobby-list"></div>
+                      </section>
+                      <section id="rooms">
+                        <h3>Rooms</h3>
+                        <button id="refreshLobby">refresh</button>
+                        <div id="new-room-ui">
+                        <form name="createNewRoomForm" id="createNewRoomForm">
+                          <input id="new-room" type="text"></input><span>room name</span><br>
+                          <button id="createRoom">create/enter new room</button>
+                        </form>
+                        </div>
+                        <div id="room-list"></div>
+                        <section id="waitingForPlayer">
+                            Waiting for other player...
+                        </section>
+                      </section>
+                  </div>
+              </td>
+              <td class="wbr">
+                <div class="wbrp">
+                </div>
+              </td>
+              </tr>
+
+              <tr>
+                <td class="wbl2">
+                  <div class="wbblp">
+                  </div>
+                </td>
+                <td class="wbr2">
+                  <div class="wbbrp">
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="wbbla">
+                </td>
+                <td class="wbb">
+                  <div class="wbblb">
+                  </div>
+                  <div class="wbbrb">
+                  </div>
+                </td>
+                <td class="wbbra">
+                </td>
+              </tr>
+          </tbody>
+        </table>
     </section>  
-  </div>
   <script src="js/phaser.js"></script>
   <script src="js/plugins/phaser_debug.js"></script>
   <script src="js/plugins/underscore-min.js"></script>
@@ -54,7 +107,6 @@
   <script src="js/plugins/cloak.js"></script>
   <script src="js/game.js"></script>
 
-
-
+  </div>
 </body>
 </html>

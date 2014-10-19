@@ -2,6 +2,7 @@
 
 var Pathfinding = require('../plugins/phaser_pathfinding-0.2.0');
 var Level1 = require('../prefabs/level1');
+var Hud = require('../prefabs/hud');
 //var io = require('../plugins/socket.io');  
 //var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
   
@@ -28,6 +29,7 @@ function Play() {}
 //        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
 		//debug plugin
 //		this.game.add.plugin(Phaser.Plugin.Debug);
+        this.hud = new Hud(this.game);
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.o_mcamera;
     },

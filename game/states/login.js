@@ -25,6 +25,10 @@
                 }
                 GlobalGame.Multiplayer.userName = loginElement.value;
                 localStorage.setItem("username", loginElement.value);
+                if(!cloak.connected()){
+                  loginUIElement.innerHTML += '<p>Can not connect to the Server</p>';
+                  return;
+                }
                 // Register our username with the server
                 cloak.message('registerUsername', {
                   username: GlobalGame.Multiplayer.userName
