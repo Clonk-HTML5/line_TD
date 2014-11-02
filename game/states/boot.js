@@ -50,6 +50,7 @@ function Boot() {
 Boot.prototype = {
   preload: function() {
     this.load.image('preloader', 'assets/preloader.gif');
+    this.game.time.advancedTiming = true;
   },
   create: function() {
     this.game.input.maxPointers = 1;

@@ -43,6 +43,9 @@ Menu.prototype = {
         this.button3.scale.setTo(1.4, 1.2);
         this.buttonGroup.add(this.button3);
   },
+  render: function() {
+      this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
+  },
     singleplayerClick: function() {
         var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, Math.random() * 4500, Phaser.Easing.Cubic.Out, true);
         fadeMenuOut.onComplete.add(function() {

@@ -48,7 +48,7 @@ TowerGroup.prototype.update = function() {
    if(this.tower){
         this.forEachAlive(function(tower) {
             this.enemys.forEachAlive(function(loopedEnemy) {
-//                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
+                if (this.game.physics.arcade.distanceBetween(tower,loopedEnemy) < 150) tower.fire(loopedEnemy);
 
                 this.game.physics.arcade.overlap(this.bullets, loopedEnemy, this.bulletHitsEnemy, null, this);
             }, this)

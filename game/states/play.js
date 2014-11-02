@@ -30,10 +30,14 @@ function Play() {}
 		//debug plugin
 //		this.game.add.plugin(Phaser.Plugin.Debug);
         this.hud = new Hud(this.game);
+        this.game.world.setBounds(0, -50, this.game.width, this.game.height)
+        this.game.camera.setSize(this.game.width, 350)
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.o_mcamera;
     },
-
+  render: function() {
+      this.game.debug.text(this.game.time.fps || '--', 2, 14, "#ffffff");
+  },
     update: function() {
         if (this.cursors.left.isDown)
         {
