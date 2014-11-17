@@ -26,6 +26,28 @@ GlobalGame = {
         connected: false
     },
     
+    Levels: {
+        Level1:{
+            tilemap: '',
+            tileset: '',
+            maxPlayers: 2,
+            waves: {
+                wave1: 'peon',
+                wave2: 'sheep',
+                wave3: 'goblin',
+                wave3: 'notsure',
+            },
+            lives: 30,
+            gold: 100,
+            income: 50,
+            maxRounds: 3,
+            maxTowers: 40,
+        },
+        Level2:{
+            
+        }
+    },
+    
     Functions: {
           //find objects in a Tiled layer that containt a property called "type" equal to a certain value
         findObjectsByType: function(type, map, layer) {

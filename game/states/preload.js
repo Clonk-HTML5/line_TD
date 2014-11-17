@@ -26,6 +26,7 @@ Preload.prototype = {
     this.load.image('tileset_ruins_c', 'assets/maps/tileset_ruins_c.gif');
 //    this.load.image('tileset_summer_grass_b', 'assets/maps/tileset_summer_grass_b.gif');
       
+    this.load.spritesheet('icons', 'assets/icons.gif', 32, 32);
     this.load.spritesheet('tower', 'assets/sprites/t_all_normal_small.png', 32, 32);
 //    this.load.spritesheet('tower', 'assets/sprites/tower_human.png', 59, 64);
     this.load.image('bullet', 'assets/sprites/bullet.png');

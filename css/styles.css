@@ -133,6 +133,7 @@ button:hover {
   float: right;
   margin-top: 5px;
   display: none;
+  width: 100%;
 }
 
 

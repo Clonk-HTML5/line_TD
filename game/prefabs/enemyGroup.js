@@ -4,6 +4,14 @@ var Enemy = require('./enemy');
 
 var EnemyGroup = function(game) {
    Phaser.Group.call(this, game);
+    this.enemyIconFrameNumbers = [60,63,65,67,73,80,85,88,90,91];
+    this.iconSize = 45;
+    this.iconSpacing = 2;
+    this.iconSizeSpaced = this.iconSize + this.iconSpacing;
+    this.iconBoardWidth = 200;
+    this.iconBoardHeight = 200;
+    this.iconBoardCols;
+    this.iconBoardRows = 3;
     this.enableBody = true;
     this.physicsBodyType = Phaser.Physics.ARCADE;
     this.lives = 30;
@@ -77,6 +85,7 @@ EnemyGroup.prototype.findPathTo = function(from, to, playerId, callback) {
     if(from && to){
         this.pathfinder.setCallbackFunction(function(path) {
             if(path) this['path'+playerId] = path;
+            this.tweenEnemy(playerId);
             if(typeof callback === 'function'){
                 callback(path);
             }
@@ -94,17 +103,54 @@ EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player, enemyIs
       this.add(this.enemy);
       this.enemy.nextTile();
 }
+EnemyGroup.prototype.tweenEnemy = function(playerId) {
+  var currentPlayerPath = this['path'+playerId],
+      totalPathLength = currentPlayerPath.length,
+      debugPath = this.game.add.graphics(0,0);
+  debugPath.lineStyle(5,0xff0000);
+  debugPath.moveTo(this['player'+playerId+'StartPoint'][0].x*GlobalGame.tileSquare,this['player'+playerId+'StartPoint'][0].y*GlobalGame.tileSquare);
+
+  var tweenHelper = {progress: 0}
+  tweenHelper.onUpdate = function(tween, value){
+    var index = Math.round(value*totalPathLength)-1,
+        p = currentPlayerPath[index === -1 ? index+1 : index]
+    
+    debugPath.lineTo(p.x*GlobalGame.tileSquare, p.y*GlobalGame.tileSquare)
+  }
+  var tween = this.game.add.tween(tweenHelper).to( { progress: 1}, 5000).start()
+  tween.onUpdateCallback(tweenHelper.onUpdate)
+}
 
 EnemyGroup.prototype.showEnemyImages = function () {
+    var j = 0;
+	this.iconBoardCols = Phaser.Math.floor(this.iconBoardWidth / this.iconSizeSpaced);
     this.spawnEnemyImageGroup = this.game.add.group(this.game, this, 'spawnEnemyImageGroup')
-    for (var i = 1, len = this.maxRounds; i <= len; i++){
-        this.spawnEnemyImage = this.game.add.sprite(this.game.width-100, this.game.height - i*80, 'enemy'+i, 3);
-        this.spawnEnemyImage.anchor.set(0.5);
-        this.spawnEnemyImage.inputEnabled = true;
-        this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
-    }
+	for (var i = 0; i < this.enemyIconFrameNumbers.length; i++) {
+            var lineMaxCols = this.iconBoardCols * (j+1),
+                doubleIconFrame = i+1,
+                iconFrameNumber = i;
+        
+            if(doubleIconFrame > lineMaxCols) j++;
+            if(i >= this.iconBoardCols) iconFrameNumber = iconFrameNumber - this.iconBoardCols * j;
+            
+            var imageXpos = this.game.width - 220 + iconFrameNumber * this.iconSizeSpaced,
+                imageYpos = this.game.height - 35 - j * this.iconSizeSpaced;
+        
+            this.spawnEnemyImage = this.game.add.sprite(imageXpos, imageYpos, 'icons', this.enemyIconFrameNumbers[i]);
+            this.spawnEnemyImage.enemyNumber = i;
+            this.spawnEnemyImage.anchor.set(0.5);
+            this.spawnEnemyImage.inputEnabled = true;
+            this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
+	}
     this.spawnEnemyImageGroup.forEach(function(spawnEnemyImage) {
-        spawnEnemyImage.events.onInputDown.add(function(){this.generateEnemy(spawnEnemyImage.key.replace( /^\D+/g, ''), this.game.state.getCurrentState().enemyPlayer, cloak.connected() ? true : false);}, this);
+        spawnEnemyImage.events.onInputDown.add(function(){
+            this.generateEnemy(spawnEnemyImage.enemyNumber, this.game.state.getCurrentState().enemyPlayer, cloak.connected() ? true : false);
+            this.income += 50;
+            console.log(this.game.state.getCurrentState())
+            console.log(this.game.state.getCurrentState().hud)
+            console.log(this.game.state.getCurrentState().hud.incomeText)
+              this.game.state.getCurrentState().hud.incomeText.setText('Income: '+this.income.toString())
+        }, this);
     }, this);
 }
 

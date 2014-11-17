@@ -6,6 +6,15 @@ var TowerGroup = function(game, enemys) {
   Phaser.Group.call(this, game);
 
     this.towerFrameNumbers = [1,3,5,7];
+    this.towerIconFrameNumbers = [20,23,25,27,30,31,32];
+    this.iconSize = 45;
+    this.iconSpacing = 2;
+    this.iconSizeSpaced = this.iconSize + this.iconSpacing;
+    this.iconBoardWidth = 200;
+    this.iconBoardHeight = 200;
+    this.iconBoardCols;
+    this.iconBoardRows = 3;
+    
     this.currentTowerFrame = 3;
     this.tileForbiden = ["9", "10"];
     this.enemys = enemys;
@@ -34,8 +43,9 @@ var TowerGroup = function(game, enemys) {
     this.goldText.fixedToCamera = true;
     
     this.income = 50;
-    this.incomeText = this.game.add.text(this.game.width - 115, 115, 'Income: ' + this.income, this.font);
-    this.incomeText.fixedToCamera = true;
+//    this.incomeText = this.game.add.text(this.game.width - 115, 115, 'Income: ' + this.income, this.font);
+//    this.incomeText.fixedToCamera = true;
+    
     this.QUARTERMINUTE = Phaser.Timer.MINUTE/3;
     
    this.game.time.events.loop(this.QUARTERMINUTE, this.incomeHandler, this);
@@ -108,15 +118,35 @@ TowerGroup.prototype.incomeHandler = function () {
 }
 
 TowerGroup.prototype.showTowerImages = function () {
+    var j = 0;
+	this.iconBoardCols = Phaser.Math.floor(this.iconBoardWidth / this.iconSizeSpaced);
     this.towerImageGroup = this.game.add.group(this.game, this, 'towerImageGroup')
-    for (var i = 0, len = this.towerFrameNumbers.length; i < len; i++){
-        this.towerImage = this.game.add.sprite(50, this.game.height - (i+1)*80, 'tower', this.towerFrameNumbers[i]);
+    for (var i = 0, len = this.towerIconFrameNumbers.length; i < len; i++){
+        
+        var lineMaxCols = this.iconBoardCols * (j+1),
+            doubleIconFrame = i+1,
+            iconFrameNumber = i;
+        
+            if(doubleIconFrame > lineMaxCols) j++;
+            if(i >= this.iconBoardCols) iconFrameNumber = iconFrameNumber - this.iconBoardCols * j;
+            
+            var imageXpos = 55 + iconFrameNumber * this.iconSizeSpaced,
+                imageYpos = this.game.height - 35 - j * this.iconSizeSpaced;
+        
+        
+        this.towerImage = this.game.add.sprite(imageXpos, imageYpos, 'icons', this.towerIconFrameNumbers[i]);
+//        var line = 1;
+//        if(i > 3) line = 2;
+//        if(i > 6) line = 3;
+//        this.towerImage = this.game.add.sprite((i+1)*55, this.game.height - 100, 'icons', this.towerIconFrameNumbers[i]);
+        this.towerImage.towerNumber = i;
         this.towerImage.anchor.set(0.5);
+        this.towerImage.scale.setTo(1.25);
         this.towerImage.inputEnabled = true;
         this.towerImageGroup.add(this.towerImage);
     }
     this.towerImageGroup.forEach(function(towerImage) {
-        towerImage.events.onInputDown.add(function(){this.currentTowerFrame = towerImage.frame;}, this);
+        towerImage.events.onInputDown.add(function(){this.currentTowerFrame = this.towerFrameNumbers[towerImage.towerNumber];}, this);
     }, this);
 }
 

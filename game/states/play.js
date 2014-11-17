@@ -17,6 +17,7 @@ function Play() {}
     },
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        
         switch(this.level){
             case 1:
                 this.currentLevel = new Level1(this.game);
@@ -25,12 +26,14 @@ function Play() {}
 //                this.currentLevel = new Level2(this.game);
                 break;
         }
+        this.hud = new Hud(this.game, this.level);
+        this.hud.z = 10;
+        this.game.world.bringToTop(this.hud);
 //        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
 //        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
 		//debug plugin
 //		this.game.add.plugin(Phaser.Plugin.Debug);
-        this.hud = new Hud(this.game);
-        this.game.world.setBounds(0, -50, this.game.width, this.game.height)
+        this.game.world.setBounds(0, -50, this.game.world.width, this.game.height)
         this.game.camera.setSize(this.game.width, 350)
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.o_mcamera;
