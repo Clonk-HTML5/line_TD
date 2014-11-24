@@ -14,6 +14,7 @@ function Play() {}
             this.enemyPlayer = this.player === 1 ? 2 : 1;
             this.countPlayers = 2;
             this.level = options.level ? options.level : 1;
+        this.round = 0;
     },
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -26,13 +27,14 @@ function Play() {}
 //                this.currentLevel = new Level2(this.game);
                 break;
         }
+        
         this.hud = new Hud(this.game, this.level);
-        this.hud.z = 10;
-        this.game.world.bringToTop(this.hud);
-//        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
-//        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
+        this.hud.z = 100;
+//        this.game.world.bringToTop(this.hud);
+        
 		//debug plugin
-//		this.game.add.plugin(Phaser.Plugin.Debug);
+		this.game.add.plugin(Phaser.Plugin.Debug);
+        
         this.game.world.setBounds(0, -50, this.game.world.width, this.game.height)
         this.game.camera.setSize(this.game.width, 350)
         this.cursors = this.game.input.keyboard.createCursorKeys();

@@ -4,6 +4,7 @@ var Enemy = require('./enemy');
 
 var EnemyGroup = function(game) {
    Phaser.Group.call(this, game);
+    this.currentLevelVars = GlobalGame.Levels['Level'+this.game.state.getCurrentState().level];
     this.enemyIconFrameNumbers = [60,63,65,67,73,80,85,88,90,91];
     this.iconSize = 45;
     this.iconSpacing = 2;
@@ -14,9 +15,6 @@ var EnemyGroup = function(game) {
     this.iconBoardRows = 3;
     this.enableBody = true;
     this.physicsBodyType = Phaser.Physics.ARCADE;
-    this.lives = 30;
-    this.round = 0;
-    this.maxRounds = 3;
     
     if(this.game.plugins.plugins[0] instanceof Phaser.Plugin.PathFinderPlugin) this.pathfinder = this.game.plugins.plugins[0];
     this.pathfinder._easyStar.setIterationsPerCalculation(1000); 
@@ -31,12 +29,6 @@ var EnemyGroup = function(game) {
         this.game.camera.x = playerCameraPos.x;
         this.game.camera.y = playerCameraPos.y;
     }
-    
-    this.roundText = this.game.add.text(this.game.width - 100, 20, 'Round '+ this.round,{ font: '16px Arial', fill: '#08d465', align: 'center'});
-    this.roundText.fixedToCamera = true;
-    
-    this.livesText = this.game.add.text(this.game.width - 100, 45, 'Lives: '+ this.lives,{ font: '16px Arial', fill: '#08d465', align: 'center'});
-    this.livesText.fixedToCamera = true;
     
     this.spawn();
     this.showEnemyImages();
@@ -56,23 +48,28 @@ EnemyGroup.prototype.update = function() {
         if(this.game.physics.arcade.distanceToXY(enemy, enemy.pathToX*GlobalGame.tileSquare, enemy.pathToY*GlobalGame.tileSquare) <= 3){    
             enemy.kill();
             if(enemy.playerId === 1){
-                this.lives--;
-                this.livesText.setText('Lives: '+ this.lives);
+                GlobalGame.Levels['Level'+this.game.state.getCurrentState().level].lives--;
+                this.game.state.getCurrentState().hud.livesText.setText('Lives: '+ GlobalGame.Levels['Level'+this.game.state.getCurrentState().level].lives);
             }
         }
     }, this);
 };
 
 EnemyGroup.prototype.spawn = function() {
-    if(this.round < this.maxRounds) this.round++;
     
-    this.roundText.setText('Round '+this.round.toString());
+    if(this.game.state.getCurrentState().round < GlobalGame.Levels['Level'+this.game.state.getCurrentState().level].maxRounds){ 
+        this.game.state.getCurrentState().round++;
+    }
+    
+    if(typeof this.game.state.getCurrentState().hud !== 'undefined'){
+        this.game.state.getCurrentState().hud.roundText.setText('Round '+ this.game.state.getCurrentState().round.toString());
+    }
     
     this.enemyGenerator = this.game.time.create(false);
     this.enemyGenerator.start();
     this.enemyGenerator.repeat(Phaser.Timer.SECOND * 1.25, 5, function(){
         for(var i = 1; i <= this.game.state.getCurrentState().countPlayers; i++){
-            this.generateEnemy(this.round, i);
+            this.generateEnemy(this.game.state.getCurrentState().round, i);
         }
     }, this);
     this.enemyGenerator.onComplete.add(function(){
@@ -85,7 +82,7 @@ EnemyGroup.prototype.findPathTo = function(from, to, playerId, callback) {
     if(from && to){
         this.pathfinder.setCallbackFunction(function(path) {
             if(path) this['path'+playerId] = path;
-            this.tweenEnemy(playerId);
+//            this.tweenEnemy(playerId);
             if(typeof callback === 'function'){
                 callback(path);
             }
@@ -96,30 +93,30 @@ EnemyGroup.prototype.findPathTo = function(from, to, playerId, callback) {
 };
 
 EnemyGroup.prototype.generateEnemy = function(currentEnemyFrame, player, enemyIsMultiplayer) {
-      var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.round,
+      var currentFrame = currentEnemyFrame ? currentEnemyFrame : this.game.state.getCurrentState().round,
           playerId = player ? player : 1;
       if(enemyIsMultiplayer) cloak.message('spawnEnemey', {player: playerId, frame: currentFrame});
       this.enemy = new Enemy(this.game, this['player'+playerId+'StartPoint'][0].x, this['player'+playerId+'StartPoint'][0].y, 'enemy'+currentFrame, 3, currentFrame, this['player'+playerId+'EndPoint'][0], playerId);
       this.add(this.enemy);
       this.enemy.nextTile();
 }
-EnemyGroup.prototype.tweenEnemy = function(playerId) {
-  var currentPlayerPath = this['path'+playerId],
-      totalPathLength = currentPlayerPath.length,
-      debugPath = this.game.add.graphics(0,0);
-  debugPath.lineStyle(5,0xff0000);
-  debugPath.moveTo(this['player'+playerId+'StartPoint'][0].x*GlobalGame.tileSquare,this['player'+playerId+'StartPoint'][0].y*GlobalGame.tileSquare);
-
-  var tweenHelper = {progress: 0}
-  tweenHelper.onUpdate = function(tween, value){
-    var index = Math.round(value*totalPathLength)-1,
-        p = currentPlayerPath[index === -1 ? index+1 : index]
-    
-    debugPath.lineTo(p.x*GlobalGame.tileSquare, p.y*GlobalGame.tileSquare)
-  }
-  var tween = this.game.add.tween(tweenHelper).to( { progress: 1}, 5000).start()
-  tween.onUpdateCallback(tweenHelper.onUpdate)
-}
+//EnemyGroup.prototype.tweenEnemy = function(playerId) {
+//  var currentPlayerPath = this['path'+playerId],
+//      totalPathLength = currentPlayerPath.length,
+//      debugPath = this.game.add.graphics(0,0);
+//  debugPath.lineStyle(5,0xff0000);
+//  debugPath.moveTo(this['player'+playerId+'StartPoint'][0].x*GlobalGame.tileSquare,this['player'+playerId+'StartPoint'][0].y*GlobalGame.tileSquare);
+//
+//  var tweenHelper = {progress: 0}
+//  tweenHelper.onUpdate = function(tween, value){
+//    var index = Math.round(value*totalPathLength)-1,
+//        p = currentPlayerPath[index === -1 ? index+1 : index]
+//    
+//    debugPath.lineTo(p.x*GlobalGame.tileSquare, p.y*GlobalGame.tileSquare)
+//  }
+//  var tween = this.game.add.tween(tweenHelper).to( { progress: 1}, 5000).start()
+//  tween.onUpdateCallback(tweenHelper.onUpdate)
+//}
 
 EnemyGroup.prototype.showEnemyImages = function () {
     var j = 0;
@@ -136,20 +133,23 @@ EnemyGroup.prototype.showEnemyImages = function () {
             var imageXpos = this.game.width - 220 + iconFrameNumber * this.iconSizeSpaced,
                 imageYpos = this.game.height - 35 - j * this.iconSizeSpaced;
         
-            this.spawnEnemyImage = this.game.add.sprite(imageXpos, imageYpos, 'icons', this.enemyIconFrameNumbers[i]);
+            this.spawnEnemyImage = this.game.add.image(imageXpos, imageYpos, 'icons', this.enemyIconFrameNumbers[i]);
             this.spawnEnemyImage.enemyNumber = i;
             this.spawnEnemyImage.anchor.set(0.5);
+            this.spawnEnemyImage.scale.set(1.25);
             this.spawnEnemyImage.inputEnabled = true;
             this.spawnEnemyImageGroup.add(this.spawnEnemyImage);
 	}
     this.spawnEnemyImageGroup.forEach(function(spawnEnemyImage) {
         spawnEnemyImage.events.onInputDown.add(function(){
             this.generateEnemy(spawnEnemyImage.enemyNumber, this.game.state.getCurrentState().enemyPlayer, cloak.connected() ? true : false);
-            this.income += 50;
-            console.log(this.game.state.getCurrentState())
-            console.log(this.game.state.getCurrentState().hud)
-            console.log(this.game.state.getCurrentState().hud.incomeText)
-              this.game.state.getCurrentState().hud.incomeText.setText('Income: '+this.income.toString())
+            GlobalGame.Levels['Level'+this.game.state.getCurrentState().level].income += 5;
+              this.game.state.getCurrentState().hud.incomeText.setText('Income: '+ GlobalGame.Levels['Level'+this.game.state.getCurrentState().level].income.toString())
+              
+          if(this.currentLevelVars.gold >= 5){
+                this.currentLevelVars.gold -= 5;
+                this.game.state.getCurrentState().hud.goldText.setText('Gold: ' + this.currentLevelVars.gold.toString());
+          }
         }, this);
     }, this);
 }

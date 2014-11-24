@@ -41,6 +41,8 @@ GlobalGame = {
             gold: 100,
             income: 50,
             maxRounds: 3,
+            towerCosts: 20,
+            towersBuilt: 0,
             maxTowers: 40,
         },
         Level2:{
