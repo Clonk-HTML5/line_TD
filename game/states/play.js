@@ -33,7 +33,7 @@ function Play() {}
 //        this.game.world.bringToTop(this.hud);
         
 		//debug plugin
-		this.game.add.plugin(Phaser.Plugin.Debug);
+//		this.game.add.plugin(Phaser.Plugin.Debug);
         
         this.game.world.setBounds(0, -50, this.game.world.width, this.game.height)
         this.game.camera.setSize(this.game.width, 350)
