@@ -47,19 +47,20 @@ Menu.prototype = {
       this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
   },
     singleplayerClick: function() {
-        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, Math.random() * 4500, Phaser.Easing.Cubic.Out, true);
+        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, 3500, Phaser.Easing.Cubic.Out, true);
         fadeMenuOut.onComplete.add(function() {
-           this.game.state.start('play', true, false, {player: 1});
+//           this.game.state.start('play', true, false, {player: 1, level: 1});
+           this.game.state.start('levelselect', true, false);
         }, this);
     },
     multiplayerClick: function() {
-        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, Math.random() * 4500, Phaser.Easing.Cubic.Out, true);
+        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, 3500, Phaser.Easing.Cubic.Out, true);
         fadeMenuOut.onComplete.add(function() {
             this.game.state.start('login');
         }, this);
     },
     optionsClick: function() {
-        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, Math.random() * 4500, Phaser.Easing.Cubic.Out, true);
+        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ y: -this.buttonGroup.width*2 }, 3500, Phaser.Easing.Cubic.Out, true);
         fadeMenuOut.onComplete.add(function() {
             this.game.state.start('login');
         }, this);

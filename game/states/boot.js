@@ -27,9 +27,12 @@ GlobalGame = {
     },
     
     Levels: {
+        maxLevels: 2,
         Level1:{
-            tilemap: '',
-            tileset: '',
+            tilemapName: 'level1',
+            tilesetName: 'summerTiles',
+            layerNames: ['Player1Build', 'Player2Build'],
+            walkables: [335, 336, 337, 338, 339, 340, 341, 342],
             maxPlayers: 2,
             waves: {
                 wave1: 'peon',
@@ -46,7 +49,24 @@ GlobalGame = {
             maxTowers: 40,
         },
         Level2:{
-            
+            tilemapName: 'level2',
+            tilesetName: 'tileset_ruins_c',
+            layerNames: ['Player1Build', 'Player2Build'],
+            walkables: [17],
+            maxPlayers: 2,
+            waves: {
+                wave1: 'peon',
+                wave2: 'sheep',
+                wave3: 'goblin',
+                wave3: 'notsure',
+            },
+            lives: 30,
+            gold: 100,
+            income: 50,
+            maxRounds: 3,
+            towerCosts: 20,
+            towersBuilt: 0,
+            maxTowers: 40,
         }
     },
     

@@ -1,7 +1,7 @@
 'use strict';
 
 var Pathfinding = require('../plugins/phaser_pathfinding-0.2.0');
-var Level1 = require('../prefabs/level1');
+var Level = require('../prefabs/level');
 var Hud = require('../prefabs/hud');
 //var io = require('../plugins/socket.io');  
 //var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
@@ -19,14 +19,7 @@ function Play() {}
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        switch(this.level){
-            case 1:
-                this.currentLevel = new Level1(this.game);
-                break;
-            case 2:
-//                this.currentLevel = new Level2(this.game);
-                break;
-        }
+        this.currentLevel = new Level(this.game);
         
         this.hud = new Hud(this.game, this.level);
         this.hud.z = 100;
@@ -79,9 +72,6 @@ function Play() {}
         var result = new Array();
         map.objects[layer].forEach(function(element){
           if(element.properties.type === type) {
-            //Phaser uses top left, Tiled bottom left so we have to adjust
-            //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
-            //so they might not be placed in the exact position as in Tiled
             element.y -= map.tileHeight;
             result.push(element);
           }      

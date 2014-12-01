@@ -155,7 +155,7 @@ TowerGroup.prototype.enemyPositTower = function(pos) {
 TowerGroup.prototype.showTowerImages = function() {
   var j = 0;
   this.iconBoardCols = Phaser.Math.floor(this.iconBoardWidth / this.iconSizeSpaced);
-  this.towerImageGroup = this.game.add.group(this.game, this, 'towerImageGroup')
+  this.towerImageGroup = this.game.add.group(this.game.state.getCurrentState().hud, this.game.state.getCurrentState().hud, 'towerImageGroup')
   for (var i = 0, len = this.towerIconFrameNumbers.length; i < len; i++) {
 
     var lineMaxCols = this.iconBoardCols * (j + 1),
